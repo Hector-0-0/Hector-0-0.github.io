@@ -1,292 +1,537 @@
+/* =========================================
+   1. CONFIGURACIÓN BASE
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --primary: #1a73e8;
-    --secondary: #34a853;
-    --dark: #202124;
-    --light: #f8f9fa;
-    --border: #dadce0;
-}
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #2c3e50;
-    background: #f8f9fa;
+    background-color: #050505;
+    color: #ffffff;
+    font-family: "Share Tech Mono", monospace;
+    /* IMPORTANTE: Evita que aparezca barra de scroll cuando el botón viene de fuera */
+    overflow-x: hidden; 
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+#canvas-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    opacity: 1;
 }
 
-header {
-    background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
-    color: white;
-    padding: 2rem 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
-
-header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-}
-
-nav {
-    background: white;
-    padding: 1rem 0;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-}
-
-nav ul {
-    list-style: none;
+/* =========================================
+   2. ESTRUCTURA (HERO)
+   ========================================= */
+.hero {
+    height: 100vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    text-align: center;
+    padding: 0 20px;
 }
 
-nav a {
-    text-decoration: none;
-    color: #2c3e50;
+/* =========================================
+   3. TIPOGRAFÍA
+   ========================================= */
+.greeting {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.8rem;
+    color: #ff4d4d;
+    margin-bottom: -5px;
+    font-weight: 400;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+}
+
+.name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(3rem, 9vw, 6rem);
     font-weight: 500;
-    transition: color 0.3s;
-    border-bottom: 3px solid transparent;
-    padding-bottom: 0.25rem;
+    color: #fff;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.2), 
+                 0 0 30px rgba(255, 77, 77, 0.1);
 }
 
-nav a:hover,
-nav a.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
-}
-
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
-section {
-    margin-bottom: 4rem;
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-section h2 {
-    color: var(--dark);
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 3px solid var(--primary);
-    padding-bottom: 0.5rem;
+.dot {
+    color: #ff4d4d;
     display: inline-block;
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
 }
 
-/* Sobre mí */
-.about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: center;
-}
-
-.about-text p {
-    margin-bottom: 1rem;
-    line-height: 1.8;
-}
-
-.about-list {
-    margin-left: 1.5rem;
-    margin-top: 0.5rem;
-}
-
-.skills-title {
-    color: var(--dark);
-    margin-bottom: 1rem;
-}
-
-.skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.skill-tag {
-    background: var(--light);
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-/* Proyectos */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-.project-card {
-    background: var(--light);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    border: 1px solid var(--border);
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.project-image {
-    width: 100%;
-    height: 200px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 3rem;
-}
-
-.project-content {
-    padding: 1.5rem;
-}
-
-.project-content h3 {
-    color: var(--dark);
-    margin-bottom: 0.5rem;
-}
-
-.project-content p {
-    color: #666;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-}
-
-.project-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
-    color: var(--primary);
-    font-weight: 500;
-}
-
-.case-study-questions {
-    background: #f0f7ff;
-    padding: 1.5rem;
-    border-left: 4px solid var(--primary);
-    margin-top: 1rem;
-}
-
-.case-study-questions h4 {
-    color: var(--dark);
-    margin-bottom: 1rem;
-}
-
-.case-study-questions ul {
-    margin-left: 1.5rem;
-    color: #555;
-}
-
-.case-study-questions li {
-    margin-bottom: 0.5rem;
-}
-
-/* Contacto */
-.contact-container {
-    text-align: center;
-}
-
-.contact-text {
+.subtitle {
     font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+    color: #d1d1d1;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
-.contact-links {
+/* =========================================
+   4. TECH STACK
+   ========================================= */
+.tech-stack {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tech-item {
+    font-size: 0.9rem;
+    color: #ff4d4d;
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    padding: 5px 15px;
+    border-radius: 4px;
+    background: rgba(255, 77, 77, 0.05);
+    transition: 0.3s;
+}
+
+.tech-item:hover {
+    background: rgba(255, 77, 77, 0.2);
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+    transform: translateY(-2px);
+    cursor: default;
+}
+
+/* =========================================
+   5. ANIMACIONES DE TEXTO (General)
+   ========================================= */
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- LA SOLUCIÓN ESTÁ AQUÍ --- */
+/* Aplicamos la animación de subir SOLO a los elementos que NO sean el botón */
+.hero .container > *:not(.cta-button) {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Tiempos para el texto */
+/* =========================================
+   SECUENCIA NARRATIVA (Cascada Rápida)
+   ========================================= */
+
+/* 1. "Hola, soy" - Entra primero */
+.greeting { 
+    animation-delay: 0.2s; 
+}
+
+/* 2. "JAIRO" - 0.1s después */
+.name { 
+    animation-delay: 0.3s; 
+}
+
+/* 3. Subtítulo - 0.1s después */
+.subtitle { 
+    animation-delay: 0.4s; 
+}
+
+/* 4. Tech Stack - 0.1s después */
+.tech-stack { 
+    animation-delay: 0.5s; 
+}
+
+/* NOTA: Tu botón debería tener un delay de 0.8s o 1.0s 
+   para que entre justo cuando termina esta secuencia. */
+
+/* =========================================
+   6. EL "VOLANTAZO" DEL BOTÓN (Drift Entry)
+   ========================================= */
+
+@keyframes driftEntry {
+    0% {
+        opacity: 0;
+        /* Empieza FUERA de la pantalla a la izquierda (-100% del ancho) */
+        transform: translateX(-100vw) skewX(-30deg);
+    }
+    70% {
+        opacity: 1;
+        /* SE PASA DE FRENADA: Va más allá del centro (+40px) y se inclina */
+        transform: translateX(40px) skewX(20deg);
+    }
+    85% {
+        /* REBOTE: Corrige hacia atrás */
+        transform: translateX(-15px) skewX(-10deg);
+    }
+    100% {
+        opacity: 1;
+        /* FINAL: Se queda quieto en el centro */
+        transform: translateX(0) skewX(0);
+    }
+}
+
+.cta-button {
+    /* Estilos visuales */
+    padding: 15px 40px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+
+    /* ANIMACIÓN */
+    opacity: 0; /* Empieza invisible */
+    /* La magia: 1.2 segundos de duración con una curva personalizada */
+    animation: driftEntry 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 1.0s; /* Espera a que termine el texto */
+
+    /* IMPORTANTE: Quitamos 'transition' aquí para que no frene la entrada */
+}
+
+/* Efectos Hover (Solo se activan cuando pasas el mouse) */
+/* =========================================
+   7. ANIMACIÓN ÉPICA CORREGIDA (SOLUCIÓN DEFINITIVA)
+   ========================================= */
+
+@keyframes driftEntry {
+    0% {
+        opacity: 0;
+        /* Empieza FUERA de la pantalla (-100vw) */
+        transform: translateX(-100vw) skewX(-30deg);
+    }
+    70% {
+        opacity: 1;
+        /* FRENADA: Se pasa un poco (+40px) */
+        transform: translateX(40px) skewX(20deg);
+    }
+    85% {
+        /* REBOTE */
+        transform: translateX(-10px) skewX(-10deg);
+    }
+    100% {
+        opacity: 1;
+        /* FINAL */
+        transform: translateX(0) skewX(0);
+    }
+}
+
+.cta-button {
+    /* --- LA LÍNEA MÁGICA QUE FALTABA --- */
+    display: inline-block; /* SIN ESTO, NO SE MUEVE */
+    
+    /* Estilos visuales */
+    padding: 15px 40px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+
+    /* ANIMACIÓN */
+    opacity: 0; 
+    animation: driftEntry 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.40s; 
+}
+
+.cta-button:hover {
+    border-color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.1);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+    letter-spacing: 4px;
+    transition: all 0.3s ease;
+}
+
+
+/* =========================================
+   SECCIÓN SOBRE MÍ (Flow Infinito + Layout Pro)
+   ========================================= */
+
+.about-section {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
+    align-items: center;
+    padding: 100px 20px;
+    position: relative;
+    /* CAMBIO CLAVE: Fondo transparente para que se vean las partículas del inicio */
+    background: transparent; 
 }
 
-.contact-btn {
-    background: var(--primary);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.3s, transform 0.2s;
-    border: none;
-    cursor: pointer;
+.glass-container {
+    /* Fondo oscuro translúcido */
+    background: rgba(10, 10, 10, 0.8); 
+    backdrop-filter: blur(12px); /* Aumenté un poco el desenfoque */
+    
+    /* EL CAMBIO CLAVE: Borde rojo tech sutil (antes era blanco invisible) */
+    border: 1px solid rgba(255, 77, 77, 0.25);
+    
+    /* GLOW: Una sombra roja muy suave alrededor para que "flote" */
+    box-shadow: 0 0 40px rgba(255, 77, 77, 0.08), 
+                inset 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra interna para profundidad */
+    
+    border-radius: 20px;
+    padding: 60px;
+    max-width: 1000px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    
+    /* Transición suave por si quieres animar el hover luego */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.contact-btn:hover {
-    background: var(--secondary);
-    transform: translateY(-2px);
+/* OPCIONAL: Si quieres que brille un poco más al pasar el mouse por encima */
+.glass-container:hover {
+    border-color: rgba(255, 77, 77, 0.5);
+    box-shadow: 0 0 50px rgba(255, 77, 77, 0.15);
 }
 
-.contact-btn-linkedin {
-    background: #0077b5;
+/* Título */
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #fff;
+    /* Línea decorativa sutil */
+    border-bottom: 2px solid rgba(255, 77, 77, 0.5);
+    display: inline-block;
+    padding-bottom: 10px;
 }
 
-.contact-btn-github {
-    background: #202124;
+.highlight { color: #ff4d4d; }
+
+/* LAYOUT: FOTO IZQ - TEXTO DER */
+.about-content {
+    display: flex;
+    align-items: center; /* Centrados verticalmente */
+    gap: 60px; /* Espacio generoso entre foto y texto */
 }
 
-footer {
-    background: var(--dark);
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
+/* --- ESTILO DE LA FOTO (Cyber-Frame) --- */
+.image-column {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-.footer-note {
+.profile-frame {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 15px;
+    /* Borde neón suave */
+    border: 2px solid rgba(255, 77, 77, 0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px; /* Un poco menos que el marco para que encaje */
+    filter: grayscale(100%); /* Efecto elegante: blanco y negro */
+    transition: filter 0.3s ease;
+}
+
+/* Efecto Hover: La foto cobra vida (color) y el marco brilla */
+.profile-frame:hover {
+    transform: scale(1.02);
+    border-color: #ff4d4d;
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
+}
+
+.profile-frame:hover .profile-img {
+    filter: grayscale(0%); /* Vuelve al color original */
+}
+
+/* Esquinas decorativas Tech */
+.frame-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff4d4d;
+    transition: 0.3s;
+}
+
+.corner-1 { top: -5px; left: -5px; border-bottom: none; border-right: none; }
+.corner-2 { bottom: -5px; right: -5px; border-top: none; border-left: none; }
+
+/* --- ESTILO DEL TEXTO --- */
+.text-column {
+    flex: 1.5; /* El texto ocupa un poco más de espacio */
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #cccccc;
+    text-align: left;
+}
+
+.text-column p { margin-bottom: 20px; }
+
+/* Palabras clave en BLANCO (Ingeniería de Sistemas, Linux) */
+.text-highlight {
+    color: #ffffff; /* Blanco puro */
+    font-weight: bold;
+    /* Un resplandor blanco muy suave para que brille un poco */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
+}
+
+/* --- MINI STATS (Más limpio que la tabla anterior) --- */
+/* --- CORRECCIÓN DE ALINEACIÓN DE STATS --- */
+.mini-stats {
+    display: flex;
+    gap: 20px; /* Reduje un poco el espacio para que quepan mejor */
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* ESTO ES CLAVE: Permite que si no caben, bajen ordenadamente */
+    flex-wrap: wrap; 
+}
+
+.stat-item {
     font-size: 0.9rem;
-    margin-top: 1rem;
-    opacity: 0.8;
+    color: #fff;
+    
+    /* EL TRUCO: Prohíbe que el texto se parta en dos líneas */
+    white-space: nowrap; 
 }
 
-@media (max-width: 768px) {
+.stat-label {
+    color: #ff4d4d;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.blink { animation: blink 1.5s infinite; }
+
+/* --- RESPONSIVE (Celulares) --- */
+@media (max-width: 900px) {
     .about-content {
-        grid-template-columns: 1fr;
+        flex-direction: column; /* Uno encima del otro */
+        text-align: center;
     }
+    
+    .text-column { text-align: center; }
+    
+    .mini-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+/* =========================================
+   SECCIÓN 02: HABILIDADES (GRID HOLOGRÁFICA)
+   ========================================= */
 
-    header h1 {
-        font-size: 1.8rem;
-    }
+.skills-section {
+    padding: 100px 20px;
+    background: transparent; /* Seguimos viendo las partículas */
+    display: flex;
+    justify-content: center;
+}
 
-    nav ul {
-        gap: 1rem;
-    }
+/* Contenedor para centrar y limitar ancho */
+.skills-section .container {
+    max-width: 1000px;
+    width: 100%;
+    text-align: left; /* Título alineado a la izquierda */
+}
 
-    section {
-        padding: 1.5rem;
-    }
+/* LA GRILLA: 3 columnas en PC, 1 en celular */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* --- LA TARJETA (CARD) --- */
+.skill-card {
+    background: rgba(15, 15, 15, 0.7); /* Oscuro semitransparente */
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    
+    /* Transición suave para el hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    
+    /* Para que el icono y texto se acomoden */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* --- EFECTO HOVER (LA MAGIA) --- */
+.skill-card:hover {
+    transform: translateY(-10px); /* Flota hacia arriba */
+    border-color: #ff4d4d; /* Borde rojo neón */
+    
+    /* Resplandor rojo intenso */
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.15), 
+                inset 0 0 10px rgba(255, 77, 77, 0.05);
+}
+
+/* Iconos (tamaño y color) */
+.skill-icon {
+    font-size: 4rem; /* Iconos grandes */
+    color: #e0e0e0; /* Blanco apagado por defecto */
+    transition: color 0.3s ease;
+}
+
+/* Al pasar el mouse por la tarjeta, el icono se pinta de rojo */
+.skill-card:hover .skill-icon {
+    color: #ff4d4d;
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+}
+
+/* Texto de la habilidad */
+.skill-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.skill-desc {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* --- TEXTO INTRODUCTORIO DE HABILIDADES --- */
+.skills-intro {
+    max-width: 700px; /* Que no sea muy ancho para que se lea fácil */
+    margin: 0 auto 50px auto; /* Centrado y separado de las tarjetas de abajo */
+    text-align: center;
+}
+
+.skills-intro p {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #cccccc; /* Gris claro, no blanco puro para no cansar */
+}
+
+/* Un pequeño detalle para las palabras en negrita dentro del texto */
+.skills-intro strong {
+    color: #fff;
+    font-weight: normal; /* La fuente mono ya es gruesa, no necesita bold */
+    border-bottom: 1px solid rgba(255, 77, 77, 0.5); /* Subrayado sutil rojo */
 }

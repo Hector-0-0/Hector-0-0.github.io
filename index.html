@@ -1,217 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mi Portafolio Profesional</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <h1>Jairo</h1>
-        <p>Especialista en Arquitectura | Diseño & Desarrollo</p>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jairo | Sistemas UNI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+</head>
+<body>
+    <canvas id="canvas-background"></canvas>
+
+    <header class="hero">
+        <div class="container">
+            <p class="greeting">Hola, soy</p>
+            <h1 class="name">Jairo<span class="dot">.</span></h1>
+            
+            <p class="subtitle">Desarrollador en formación | Ingeniería de Sistemas - UNI</p>
+            
+            <div class="tech-stack">
+                <span>C++</span> | <span>Java</span> | <span>SQL</span> | <span>Git</span> | <span>Linux</span>
+            </div>
+
+            <br>
+            <a href="#projects" class="cta-button">Ver mi trabajo ↓</a>
+        </div>
     </header>
 
-    <nav>
-      <ul>
-        <li><a href="#about">Sobre mí</a></li>
-        <li><a href="#projects">Proyectos</a></li>
-        <li><a href="#contact">Contacto</a></li>
-      </ul>
-    </nav>
-
-    <main>
-      <!-- SECCIÓN: SOBRE MÍ -->
-      <section id="about">
-        <h2>Sobre mí</h2>
-        <div class="about-content">
-          <div class="about-text">
-            <p>
-              Soy un profesional apasionado por crear soluciones innovadoras que
-              combinan estrategia, diseño y tecnología. Con más de [X años] de
-              experiencia, he tenido el privilegio de colaborar con startups y
-              empresas consolidadas en la transformación de sus desafíos en
-              oportunidades.
-            </p>
-
-            <p>
-              Mi enfoque se centra en entender profundamente las necesidades de
-              mis clientes para entregar resultados que no solo cumplan
-              expectativas, sino que las superen. Creo en el poder de la
-              colaboración, la creatividad responsable y la mejora continua.
-            </p>
-
-            <p><strong>¿Por qué trabajar conmigo?</strong></p>
-            <ul class="about-list">
-              <li>Enfoque orientado a resultados measurables</li>
-              <li>Comunicación clara y transparente</li>
-              <li>Experiencia multidisciplinaria</li>
-              <li>Compromiso con la excelencia</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="skills-title">Habilidades Clave</h3>
-            <div class="skills">
-              <span class="skill-tag">Habilidad 1</span>
-              <span class="skill-tag">Habilidad 2</span>
-              <span class="skill-tag">Habilidad 3</span>
-              <span class="skill-tag">Habilidad 4</span>
-              <span class="skill-tag">Habilidad 5</span>
-              <span class="skill-tag">Habilidad 6</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECCIÓN: PROYECTOS / CASE STUDIES -->
-      <section id="projects">
-        <h2>Proyectos Destacados</h2>
-        <div class="projects-grid">
-          <!-- Proyecto 1 -->
-          <div class="project-card">
-            <div class="project-image">🎨</div>
-            <div class="project-content">
-              <h3>Nombre del Proyecto</h3>
-              <p>
-                Breve descripción del problema resuelto y el impacto generado en
-                el cliente.
-              </p>
-              <div class="project-meta">
-                <span>Año: 2024</span>
-                <span>Categoría: Diseño</span>
-              </div>
-              <div class="case-study-questions">
-                <h4>Preguntas Clave del Case Study</h4>
-                <ul>
-                  <li>
-                    <strong>¿Cuál era el problema?</strong> Contexto y desafío
-                    inicial
-                  </li>
-                  <li>
-                    <strong>¿Qué solución propusiste?</strong> Estrategia y
-                    ejecución
-                  </li>
-                  <li>
-                    <strong>¿Cuál fue el resultado?</strong> Métricas e impacto
-                    medible
-                  </li>
-                  <li>
-                    <strong>¿Qué aprendiste?</strong> Insights y lecciones
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Proyecto 2 -->
-          <div class="project-card">
-            <div class="project-image">💻</div>
-            <div class="project-content">
-              <h3>Nombre del Proyecto</h3>
-              <p>
-                Breve descripción del problema resuelto y el impacto generado en
-                el cliente.
-              </p>
-              <div class="project-meta">
-                <span>Año: 2024</span>
-                <span>Categoría: Desarrollo</span>
-              </div>
-              <div class="case-study-questions">
-                <h4>Preguntas Clave del Case Study</h4>
-                <ul>
-                  <li>
-                    <strong>¿Cuál era el problema?</strong> Contexto y desafío
-                    inicial
-                  </li>
-                  <li>
-                    <strong>¿Qué solución propusiste?</strong> Estrategia y
-                    ejecución
-                  </li>
-                  <li>
-                    <strong>¿Cuál fue el resultado?</strong> Métricas e impacto
-                    medible
-                  </li>
-                  <li>
-                    <strong>¿Qué aprendiste?</strong> Insights y lecciones
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Proyecto 3 -->
-          <div class="project-card">
-            <div class="project-image">📊</div>
-            <div class="project-content">
-              <h3>Nombre del Proyecto</h3>
-              <p>
-                Breve descripción del problema resuelto y el impacto generado en
-                el cliente.
-              </p>
-              <div class="project-meta">
-                <span>Año: 2023</span>
-                <span>Categoría: Estrategia</span>
-              </div>
-              <div class="case-study-questions">
-                <h4>Preguntas Clave del Case Study</h4>
-                <ul>
-                  <li>
-                    <strong>¿Cuál era el problema?</strong> Contexto y desafío
-                    inicial
-                  </li>
-                  <li>
-                    <strong>¿Qué solución propusiste?</strong> Estrategia y
-                    ejecución
-                  </li>
-                  <li>
-                    <strong>¿Cuál fue el resultado?</strong> Métricas e impacto
-                    medible
-                  </li>
-                  <li>
-                    <strong>¿Qué aprendiste?</strong> Insights y lecciones
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECCIÓN: CONTACTO -->
-      <section id="contact">
-        <h2>Hablemos</h2>
-        <div class="contact-container">
-          <p class="contact-text">
-            ¿Tienes un proyecto en mente o quieres colaborar? Me encantaría
-            escucharte.
-          </p>
-          <div class="contact-links">
-            <a href="mailto:tu-email@ejemplo.com" class="contact-btn"
-              >Enviar Email</a
-            >
-            <a
-              href="https://linkedin.com/in/tu-perfil"
-              class="contact-btn contact-btn-linkedin"
-              >LinkedIn</a
-            >
-            <a
-              href="https://github.com/tu-perfil"
-              class="contact-btn contact-btn-github"
-              >GitHub</a
-            >
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>&copy; 2024 Tu Nombre. Todos los derechos reservados.</p>
-      <p class="footer-note">Diseñado y desarrollado con atención al detalle</p>
-    </footer>
-
     <script src="script.js"></script>
-  </body>
+
+
+    <section class="about-section" id="about">
+    <div class="glass-container">
+        <h2 class="section-title">01. <span class="highlight">Sobre Mí</span></h2>
+        
+        <div class="about-content">
+            <div class="image-column">
+                <div class="profile-frame">
+                    <img src="tu-foto.jpg" alt="Foto de Jairo" class="profile-img">
+                    <div class="frame-corner corner-1"></div>
+                    <div class="frame-corner corner-2"></div>
+                </div>
+            </div>
+
+            <div class="text-column">
+                <p>
+                    Hola, soy estudiante de <span class="text-highlight">Ingeniería de Sistemas</span> en la UNI. 
+                    Mi pasión no es solo escribir código, es entender cómo funcionan las cosas por dentro.
+                </p>
+                <p>
+                    Me especializo en el backend y la seguridad. Cuando no estoy rompiendo (o arreglando) 
+                    bases de datos en SQL, estoy explorando el mundo de <span class="text-highlight">Linux</span> y la ciberseguridad.
+                </p>
+                
+                <div class="mini-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Nivel:</span> 3er Ciclo
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Especialidad:</span> Backend & Data
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Estado:</span> <span class="blink">Disponible</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="skills-section" id="skills">
+    <div class="container">
+        <h2 class="section-title">02. <span class="highlight">Habilidades</span></h2>
+        <div class="skills-intro">
+            <p>
+            No elijo tecnologías por moda, sino por eficiencia. 
+            Mi enfoque es <span class="text-highlight">Backend-First</span>: construir 
+            arquitecturas robustas donde la seguridad y el rendimiento son la prioridad.
+            Desde la gestión de memoria en <strong>C++</strong> hasta la escalabilidad en <strong>Java</strong>.
+            </p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="devicon-cplusplus-plain skill-icon"></i>
+                <h3 class="skill-name">C++</h3>
+                <p class="skill-desc">Estructuras de datos & Algoritmos</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="devicon-java-plain skill-icon"></i>
+                <h3 class="skill-name">Java</h3>
+                <p class="skill-desc">POO & Backend Logic</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="devicon-microsoftsqlserver-plain skill-icon"></i> <h3 class="skill-name">SQL</h3>
+                <p class="skill-desc">Gestión de Bases de Datos</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="devicon-linux-plain skill-icon"></i>
+                <h3 class="skill-name">Linux</h3>
+                <p class="skill-desc">Terminal & Scripting</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="devicon-git-plain skill-icon"></i>
+                <h3 class="skill-name">Git / GitHub</h3>
+                <p class="skill-desc">Control de Versiones</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="devicon-docker-plain skill-icon"></i>
+                <h3 class="skill-name">Docker</h3>
+                <p class="skill-desc">Contenedores (Básico)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
 </html>
