@@ -14,33 +14,34 @@
 <body>
     <canvas id="canvas-background"></canvas>
 
-    <header class="hero">
-        <div class="container">
-            <p class="greeting">Hola, soy</p>
-            <h1 class="name">Jairo<span class="dot">.</span></h1>
-            
-            <p class="subtitle">Desarrollador en formación | Ingeniería de Sistemas - UNI</p>
-            
-            <div class="tech-stack">
-                <span>C++</span> | <span>Java</span> | <span>SQL</span> | <span>Git</span> | <span>Linux</span>
-            </div>
+<header class="hero">
+    <div class="container">
+        <p class="greeting">Hola, soy</p>
+        <h1 class="name">Héctor<span class="dot">.</span></h1>
 
-            <br>
+        <p class="subtitle">Full Stack Developer en formación | Ingeniería de Sistemas - UNI</p>
+
+        <p class="hero-phrase">Construyo soluciones, no solo código.</p>
+
+        <div class="cta-group">
             <a href="#projects" class="cta-button">Ver mi trabajo ↓</a>
+            <a href="/assets/cv/CV_Hector_Flores.pdf" class="cta-button cta-button--secondary" download>Descargar CV</a>
         </div>
-    </header>
+    </div>
+</header>
 
     <script src="script.js"></script>
 
 
-    <section class="about-section" id="about">
+<section class="about-section" id="about">
     <div class="glass-container">
         <h2 class="section-title">01. <span class="highlight">Sobre Mí</span></h2>
-        
+
         <div class="about-content">
             <div class="image-column">
                 <div class="profile-frame">
-                    <img src="tu-foto.jpg" alt="Foto de Jairo" class="profile-img">
+                    <!-- REEMPLAZAR CON FOTO REAL -->
+                    <img src="tu-foto.jpg" alt="Foto de Héctor" class="profile-img">
                     <div class="frame-corner corner-1"></div>
                     <div class="frame-corner corner-2"></div>
                 </div>
@@ -48,20 +49,22 @@
 
             <div class="text-column">
                 <p>
-                    Hola, soy estudiante de <span class="text-highlight">Ingeniería de Sistemas</span> en la UNI. 
-                    Mi pasión no es solo escribir código, es entender cómo funcionan las cosas por dentro.
+                    Estoy en <span class="text-highlight">3er semestre de Ingeniería de Sistemas</span> en la UNI.
+                    Me obsesiona entender cómo funcionan los sistemas por dentro y por eso disfruto tanto
+                    construir y depurar soluciones reales.
                 </p>
                 <p>
-                    Me especializo en el backend y la seguridad. Cuando no estoy rompiendo (o arreglando) 
-                    bases de datos en SQL, estoy explorando el mundo de <span class="text-highlight">Linux</span> y la ciberseguridad.
+                    Hoy mi enfoque es <span class="text-highlight">Full Stack con Node.js y JavaScript</span>, sin perder
+                    la base sólida en backend. A futuro quiero profundizar en <span class="text-highlight">análisis de datos</span>
+                    y explorar el ecosistema de <span class="text-highlight">Odoo</span>.
                 </p>
-                
+
                 <div class="mini-stats">
                     <div class="stat-item">
-                        <span class="stat-label">Nivel:</span> 3er Ciclo
+                        <span class="stat-label">Nivel:</span> 3er Semestre
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Especialidad:</span> Backend & Data
+                        <span class="stat-label">Especialidad:</span> Full Stack & Backend
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Estado:</span> <span class="blink">Disponible</span>
@@ -71,55 +74,199 @@
         </div>
     </div>
 </section>
+
 <section class="skills-section" id="skills">
     <div class="container">
         <h2 class="section-title">02. <span class="highlight">Habilidades</span></h2>
         <div class="skills-intro">
             <p>
-            No elijo tecnologías por moda, sino por eficiencia. 
-            Mi enfoque es <span class="text-highlight">Backend-First</span>: construir 
-            arquitecturas robustas donde la seguridad y el rendimiento son la prioridad.
-            Desde la gestión de memoria en <strong>C++</strong> hasta la escalabilidad en <strong>Java</strong>.
+                No elijo tecnologías por moda, sino por eficiencia.
+                Mi enfoque es <span class="text-highlight">Full Stack</span>: construir
+                sistemas confiables y mantenerlos sanos en producción.
             </p>
         </div>
+
         <div class="skills-grid">
+            <!-- Fila 1 -->
             <div class="skill-card">
-                <i class="devicon-cplusplus-plain skill-icon"></i>
-                <h3 class="skill-name">C++</h3>
-                <p class="skill-desc">Estructuras de datos & Algoritmos</p>
+                <i class="devicon-javascript-plain skill-icon"></i>
+                <h3 class="skill-name">JavaScript</h3>
+                <p class="skill-desc">ES6+ & lógica de negocio</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="devicon-nodejs-plain skill-icon"></i>
+                <h3 class="skill-name">Node.js</h3>
+                <p class="skill-desc">APIs & backend en evolución</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="devicon-python-plain skill-icon"></i>
+                <h3 class="skill-name">Python</h3>
+                <p class="skill-desc">Automatización y scripts</p>
             </div>
 
             <div class="skill-card">
                 <i class="devicon-java-plain skill-icon"></i>
                 <h3 class="skill-name">Java</h3>
-                <p class="skill-desc">POO & Backend Logic</p>
+                <p class="skill-desc">POO & lógica sólida</p>
             </div>
 
             <div class="skill-card">
-                <i class="devicon-microsoftsqlserver-plain skill-icon"></i> <h3 class="skill-name">SQL</h3>
-                <p class="skill-desc">Gestión de Bases de Datos</p>
+                <i class="devicon-cplusplus-plain skill-icon"></i>
+                <h3 class="skill-name">C++</h3>
+                <p class="skill-desc">Estructuras y rendimiento</p>
+            </div>
+
+            <!-- Fila 2 -->
+            <div class="skill-card">
+                <i class="devicon-mysql-plain skill-icon"></i>
+                <h3 class="skill-name">SQL / MySQL</h3>
+                <p class="skill-desc">Modelado & consultas</p>
             </div>
 
             <div class="skill-card">
-                <i class="devicon-linux-plain skill-icon"></i>
-                <h3 class="skill-name">Linux</h3>
-                <p class="skill-desc">Terminal & Scripting</p>
+                <i class="devicon-html5-plain skill-icon"></i>
+                <h3 class="skill-name">HTML / CSS</h3>
+                <p class="skill-desc">UI limpia y responsive</p>
             </div>
 
             <div class="skill-card">
                 <i class="devicon-git-plain skill-icon"></i>
                 <h3 class="skill-name">Git / GitHub</h3>
-                <p class="skill-desc">Control de Versiones</p>
+                <p class="skill-desc">Flujos y versionado</p>
             </div>
 
             <div class="skill-card">
                 <i class="devicon-docker-plain skill-icon"></i>
                 <h3 class="skill-name">Docker</h3>
-                <p class="skill-desc">Contenedores (Básico)</p>
+                <p class="skill-desc">Contenedores básicos</p>
             </div>
+
+            <div class="skill-card">
+                <i class="devicon-linux-plain skill-icon"></i>
+                <h3 class="skill-name">Linux</h3>
+                <p class="skill-desc">Terminal & entorno dev</p>
+            </div>
+        </div>
+
+        <p class="skills-note">React & PostgreSQL en aprendizaje activo</p>
+    </div>
+</section>
+
+<section class="projects-section" id="projects">
+    <div class="container">
+        <h2 class="section-title">03. <span class="highlight">Proyectos</span></h2>
+
+        <div class="projects-grid">
+            <!-- PROYECTO 01 (PLACEHOLDER) -->
+            <!--
+            <div class="project-card">
+                <h3 class="project-title">Nombre del proyecto</h3>
+                <p class="project-desc">Descripción breve en 2 líneas.</p>
+                <div class="project-tags">
+                    <span class="tag">Tech 1</span>
+                    <span class="tag">Tech 2</span>
+                    <span class="tag">Tech 3</span>
+                </div>
+                <div class="project-actions">
+                    <a href="LINK_GITHUB" class="btn-link">GitHub</a>
+                    <a href="LINK_DEMO" class="btn-link btn-link--secondary">Demo</a>
+                </div>
+            </div>
+            -->
+
+            <!-- PROYECTO 02 (PLACEHOLDER) -->
+            <!--
+            <div class="project-card">
+                <h3 class="project-title">Nombre del proyecto</h3>
+                <p class="project-desc">Descripción breve en 2 líneas.</p>
+                <div class="project-tags">
+                    <span class="tag">Tech 1</span>
+                    <span class="tag">Tech 2</span>
+                    <span class="tag">Tech 3</span>
+                </div>
+                <div class="project-actions">
+                    <a href="LINK_GITHUB" class="btn-link">GitHub</a>
+                    <a href="LINK_DEMO" class="btn-link btn-link--secondary">Demo</a>
+                </div>
+            </div>
+            -->
+
+            <!-- PROYECTO 03 (PLACEHOLDER) -->
+            <!--
+            <div class="project-card">
+                <h3 class="project-title">Nombre del proyecto</h3>
+                <p class="project-desc">Descripción breve en 2 líneas.</p>
+                <div class="project-tags">
+                    <span class="tag">Tech 1</span>
+                    <span class="tag">Tech 2</span>
+                    <span class="tag">Tech 3</span>
+                </div>
+                <div class="project-actions">
+                    <a href="LINK_GITHUB" class="btn-link">GitHub</a>
+                    <a href="LINK_DEMO" class="btn-link btn-link--secondary">Demo</a>
+                </div>
+            </div>
+            -->
+
+            <!-- PROYECTO 04 (PLACEHOLDER) -->
+            <!--
+            <div class="project-card">
+                <h3 class="project-title">Nombre del proyecto</h3>
+                <p class="project-desc">Descripción breve en 2 líneas.</p>
+                <div class="project-tags">
+                    <span class="tag">Tech 1</span>
+                    <span class="tag">Tech 2</span>
+                    <span class="tag">Tech 3</span>
+                </div>
+                <div class="project-actions">
+                    <a href="LINK_GITHUB" class="btn-link">GitHub</a>
+                    <a href="LINK_DEMO" class="btn-link btn-link--secondary">Demo</a>
+                </div>
+            </div>
+            -->
+
+            <!-- PROYECTO 05 (PLACEHOLDER) -->
+            <!--
+            <div class="project-card">
+                <h3 class="project-title">Nombre del proyecto</h3>
+                <p class="project-desc">Descripción breve en 2 líneas.</p>
+                <div class="project-tags">
+                    <span class="tag">Tech 1</span>
+                    <span class="tag">Tech 2</span>
+                    <span class="tag">Tech 3</span>
+                </div>
+                <div class="project-actions">
+                    <a href="LINK_GITHUB" class="btn-link">GitHub</a>
+                    <a href="LINK_DEMO" class="btn-link btn-link--secondary">Demo</a>
+                </div>
+            </div>
+            -->
         </div>
     </div>
 </section>
+
+<section class="contact-section" id="contact">
+    <div class="container">
+        <h2 class="section-title">04. <span class="highlight">Contacto</span></h2>
+        <h3 class="contact-title">¿Tienes un proyecto en mente?</h3>
+
+        <div class="contact-links">
+            <a class="contact-link" href="https://github.com/Hector-0-0" target="_blank" rel="noopener">GitHub</a>
+            <a class="contact-link" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="contact-link" href="mailto:floressanchezhectordavid@gmail.com">Email</a>
+        </div>
+
+        <a href="/assets/cv/CV_Hector_Flores.pdf" class="cta-button cta-button--secondary" download>
+            ⭳ Descargar CV
+        </a>
+    </div>
+</section>
+
+<footer class="site-footer">
+    Héctor Flores © 2025 — Hecho con código y café
+</footer>
 
 </body>
 </html>
