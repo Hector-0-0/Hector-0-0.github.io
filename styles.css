@@ -246,7 +246,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 120px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 120px;
+    padding-top: 75px;
 }
 
 .glass-container {
@@ -256,7 +259,10 @@ body {
     box-shadow: 0 0 40px rgba(255, 77, 77, 0.08),
                 inset 0 0 20px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
-    padding: 60px;
+    padding-right: 60px;
+    padding-left: 60px;
+    padding-top: 60px;
+    padding-bottom: 50px;
     max-width: 1000px;
     width: 100%;
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
