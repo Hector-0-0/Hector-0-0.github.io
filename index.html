@@ -10,33 +10,52 @@
     <meta name="author" content="Héctor David Flores Sánchez">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph (para LinkedIn / redes) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Héctor Flores | Portafolio">
     <meta property="og:description" content="La imaginación es la base del cambio.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hector-0-0.github.io">
 
-    <!-- Fonts -->
+    <!-- ★ FIX RENDER BLOCKING: Fuentes con display=swap y carga no bloqueante -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- display=swap evita que el texto sea invisible mientras carga la fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    </noscript>
 
-    <!-- Devicons -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.jpg">
+
+    <!-- CSS propio — crítico, va en el head -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- ★ FIX RENDER BLOCKING: Devicons cargado de forma no bloqueante -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    </noscript>
 </head>
 <body>
 
     <!-- ★ NAVEGACIÓN FIJA -->
     <nav class="navbar" id="navbar">
         <div class="nav-logo">HF<span class="dot">.</span></div>
+
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <ul class="nav-links">
             <li><a href="#about">Sobre mí</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Proyectos</a></li>
             <li><a href="#contact">Contacto</a></li>
         </ul>
+
         <a href="assets/cv/CV_Hector_Flores.pdf" class="nav-cv" download>CV ↓</a>
     </nav>
 
@@ -51,7 +70,6 @@
             <p class="hero-phrase">La imaginación es la base del cambio.</p>
             <div class="cta-group">
                 <a href="#projects" class="cta-button">Ver mi trabajo ↓</a>
-                
             </div>
         </div>
     </header>
@@ -63,7 +81,8 @@
             <div class="about-content">
                 <div class="image-column">
                     <div class="profile-frame">
-                        <img src="foto.jpg" alt="Foto de Héctor Flores" class="profile-img">
+                        <!-- ★ FIX: loading="lazy" para no bloquear el LCP -->
+                        <img src="foto.jpg" alt="Foto de Héctor Flores" class="profile-img" loading="lazy" width="260" height="260">
                         <div class="frame-corner corner-1"></div>
                         <div class="frame-corner corner-2"></div>
                     </div>
@@ -109,7 +128,6 @@
                 </p>
             </div>
             <div class="skills-grid">
-                <!-- Fila 1 -->
                 <div class="skill-card">
                     <i class="devicon-javascript-plain skill-icon"></i>
                     <h3 class="skill-name">JavaScript</h3>
@@ -135,7 +153,6 @@
                     <h3 class="skill-name">C++</h3>
                     <p class="skill-desc">Estructuras y rendimiento</p>
                 </div>
-                <!-- Fila 2 -->
                 <div class="skill-card">
                     <i class="devicon-mysql-plain skill-icon"></i>
                     <h3 class="skill-name">SQL / MySQL</h3>
@@ -162,7 +179,6 @@
                     <p class="skill-desc">Terminal & entorno dev</p>
                 </div>
             </div>
-            <p class="skills-note">⚡ React & PostgreSQL en aprendizaje activo</p>
         </div>
     </section>
 
@@ -172,7 +188,7 @@
             <h2 class="section-title">03. <span class="highlight">Proyectos</span></h2>
             <div class="projects-grid">
 
-                <!-- PROYECTO 01 — Rellena: project-title, project-desc, tags, LINK_GITHUB, LINK_DEMO -->
+                <!-- PROYECTO 01 -->
                 <div class="project-card">
                     <div class="project-number">01</div>
                     <h3 class="project-title">Nombre del proyecto</h3>

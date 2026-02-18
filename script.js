@@ -1,43 +1,49 @@
 /* =========================================
-   CANVAS — PARTÍCULAS OPTIMIZADAS
+   CANVAS — PARTÍCULAS ULTRA OPTIMIZADAS
    ========================================= */
 const canvas = document.getElementById('canvas-background');
 const ctx = canvas.getContext('2d');
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
 let particlesArray = [];
 let animationId;
 let isVisible = true;
 
-const mouse = { x: null, y: null, radius: 130 };
+// Detectar móvil una sola vez al cargar
+const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)
+    || window.innerWidth < 768;
 
-window.addEventListener('mousemove', (e) => {
-    mouse.x = e.x;
-    mouse.y = e.y;
-});
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// ── Reducir partículas en móvil para mejorar performance ──
-function getParticleCount() {
-    const area = canvas.width * canvas.height;
-    if (window.innerWidth < 768) return Math.min(40, area / 18000); // Móvil: menos partículas
-    return Math.min(120, area / 9000); // Desktop: limitado a 120
+// En móvil no rastrear mouse (ahorra CPU)
+if (!isMobile) {
+    window.addEventListener('mousemove', (e) => {
+        // disponible para futuras interacciones
+    }, { passive: true });
 }
+
+function getParticleCount() {
+    if (isMobile) return 20;
+    if (window.innerWidth < 1024) return 50;
+    return 80;
+}
+
+const MAX_CONNECT_DIST = isMobile ? 6000 : 12000;
 
 class Particle {
     constructor() {
-        this.size = Math.random() * 1.5 + 0.8;
-        this.x = Math.random() * (canvas.width - this.size * 2) + this.size;
-        this.y = Math.random() * (canvas.height - this.size * 2) + this.size;
-        this.directionX = (Math.random() * 1.5) - 0.75; // Más lentas
-        this.directionY = (Math.random() * 1.5) - 0.75;
+        this.size = Math.random() * 1.2 + 0.6;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        const speed = isMobile ? 0.3 : 0.6;
+        this.directionX = (Math.random() - 0.5) * speed;
+        this.directionY = (Math.random() - 0.5) * speed;
     }
 
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
         ctx.fill();
     }
 
@@ -50,20 +56,17 @@ class Particle {
     }
 }
 
-// ── Conexiones: distancia máxima proporcional a la pantalla (limitada) ──
-const MAX_CONNECT_DIST = 12000; // Fija, no depende del tamaño de pantalla
-
+// En móvil no dibujar líneas — gran ahorro de CPU
 function connect() {
+    if (isMobile) return;
     for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a + 1; b < particlesArray.length; b++) {
             const dx = particlesArray[a].x - particlesArray[b].x;
             const dy = particlesArray[a].y - particlesArray[b].y;
             const dist = dx * dx + dy * dy;
-
             if (dist < MAX_CONNECT_DIST) {
-                // Líneas más tenues cuando están más lejos
-                const opacity = 1 - dist / MAX_CONNECT_DIST;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.08})`;
+                const opacity = (1 - dist / MAX_CONNECT_DIST) * 0.08;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
                 ctx.lineWidth = 0.8;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -82,15 +85,22 @@ function init() {
     }
 }
 
-function animate() {
-    if (!isVisible) return; // Pausa si la pestaña no está activa
+// Limitar FPS: 30 en móvil, 60 en desktop
+let lastTime = 0;
+const FRAME_INTERVAL = isMobile ? 1000 / 30 : 1000 / 60;
+
+function animate(timestamp = 0) {
+    if (!isVisible) return;
     animationId = requestAnimationFrame(animate);
+    const elapsed = timestamp - lastTime;
+    if (elapsed < FRAME_INTERVAL) return;
+    lastTime = timestamp - (elapsed % FRAME_INTERVAL);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particlesArray.forEach(p => p.update());
     connect();
 }
 
-// ── Pausar cuando la pestaña no está visible (ahorra batería/CPU) ──
+// Pausar cuando la pestaña no está activa
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         isVisible = false;
@@ -101,7 +111,7 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-// ── Resize con debounce para no recalcular cada píxel ──
+// Resize con debounce
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
@@ -109,21 +119,37 @@ window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         init();
-    }, 200);
-});
+    }, 250);
+}, { passive: true });
 
 init();
 animate();
 
 /* =========================================
-   NAVBAR — Aparece al hacer scroll
+   NAVBAR — Scroll effect
    ========================================= */
 const navbar = document.getElementById('navbar');
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
+
+/* =========================================
+   NAVBAR — Menú hamburguesa (móvil)
+   ========================================= */
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburger) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('open');
+        });
+    });
+}
