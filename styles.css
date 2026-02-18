@@ -259,7 +259,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 80px 20px;
+    padding: 0px 20px;
+    padding-top: 60px;
 }
 
 .glass-container {
@@ -380,13 +381,12 @@ body {
     font-weight: bold;
 }
 
-.blink { animation: blink 1.5s step-end infinite; }
-
 /* =========================================
    7. HABILIDADES
    ========================================= */
 .skills-section {
-    padding: 100px 20px;
+    padding: 0px 20px;
+    padding-top: 100px;
     display: flex;
     justify-content: center;
 }
