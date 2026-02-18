@@ -294,12 +294,14 @@ body {
 
 .about-content {
     display: flex;
+    align-items: center;
     gap: 60px;
 }
 
 .image-column {
     flex: 1;
     display: flex;
+    justify-content: center;
     width: 404px;
     height: 400px;
 
