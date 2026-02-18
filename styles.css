@@ -1,18 +1,37 @@
 /* =========================================
-   1. CONFIGURACIÓN BASE
+   VARIABLES GLOBALES
    ========================================= */
-* {
+:root {
+    --red: #ff4d4d;
+    --red-dim: rgba(255, 77, 77, 0.15);
+    --red-border: rgba(255, 77, 77, 0.3);
+    --bg: #050505;
+    --bg-card: rgba(15, 15, 15, 0.75);
+    --text: #ffffff;
+    --text-muted: #cccccc;
+    --text-dim: #888888;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-display: 'Orbitron', sans-serif;
+}
+
+/* =========================================
+   1. RESET & BASE
+   ========================================= */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background-color: #050505;
-    color: #ffffff;
-    font-family: "Share Tech Mono", monospace;
-    /* IMPORTANTE: Evita que aparezca barra de scroll cuando el botón viene de fuera */
-    overflow-x: hidden; 
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    overflow-x: hidden;
 }
 
 #canvas-background {
@@ -20,530 +39,137 @@ body {
     top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: -1;
-    opacity: 1;
 }
 
 /* =========================================
-   2. ESTRUCTURA (HERO)
+   2. NAVBAR
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(5, 5, 5, 0);
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+/* Clase que añade JS al hacer scroll */
+.navbar.scrolled {
+    background: rgba(5, 5, 5, 0.92);
+    backdrop-filter: blur(12px);
+    border-color: var(--red-border);
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--text);
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--red);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-cv {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--red);
+    text-decoration: none;
+    border: 1px solid var(--red-border);
+    padding: 8px 18px;
+    transition: all 0.3s ease;
+}
+
+.nav-cv:hover {
+    background: var(--red-dim);
+    border-color: var(--red);
+}
+
+/* =========================================
+   3. HERO
    ========================================= */
 .hero {
     height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 0 20px;
 }
 
-/* =========================================
-   3. TIPOGRAFÍA
-   ========================================= */
 .greeting {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 1.8rem;
-    color: #ff4d4d;
+    color: var(--red);
     margin-bottom: -5px;
-    font-weight: 400;
     text-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
 }
 
 .name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(3rem, 9vw, 6rem);
     font-weight: 500;
-    color: #fff;
+    color: var(--text);
     letter-spacing: 6px;
     text-transform: uppercase;
     margin-bottom: 15px;
-    text-shadow: 0 0 15px rgba(255, 77, 77, 0.2), 
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.2),
                  0 0 30px rgba(255, 77, 77, 0.1);
 }
 
 .dot {
-    color: #ff4d4d;
-    display: inline-block;
+    color: var(--red);
     text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
 }
 
 .subtitle {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #d1d1d1;
     max-width: 600px;
     line-height: 1.6;
-    margin-bottom: 35px;
-    font-weight: 300;
+    margin: 0 auto 10px;
     letter-spacing: 0.5px;
 }
 
-/* =========================================
-   4. TECH STACK
-   ========================================= */
-.tech-stack {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.tech-item {
-    font-size: 0.9rem;
-    color: #ff4d4d;
-    border: 1px solid rgba(255, 77, 77, 0.3);
-    padding: 5px 15px;
-    border-radius: 4px;
-    background: rgba(255, 77, 77, 0.05);
-    transition: 0.3s;
-}
-
-.tech-item:hover {
-    background: rgba(255, 77, 77, 0.2);
-    box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
-    transform: translateY(-2px);
-    cursor: default;
-}
-
-/* =========================================
-   5. ANIMACIONES DE TEXTO (General)
-   ========================================= */
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- LA SOLUCIÓN ESTÁ AQUÍ --- */
-/* Aplicamos la animación de subir SOLO a los elementos que NO sean el botón */
-.hero .container > *:not(.cta-button) {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-/* Tiempos para el texto */
-/* =========================================
-   SECUENCIA NARRATIVA (Cascada Rápida)
-   ========================================= */
-
-/* 1. "Hola, soy" - Entra primero */
-.greeting { 
-    animation-delay: 0.2s; 
-}
-
-/* 2. "JAIRO" - 0.1s después */
-.name { 
-    animation-delay: 0.3s; 
-}
-
-/* 3. Subtítulo - 0.1s después */
-.subtitle { 
-    animation-delay: 0.4s; 
-}
-
-/* 4. Tech Stack - 0.1s después */
-.tech-stack { 
-    animation-delay: 0.5s; 
-}
-
-/* NOTA: Tu botón debería tener un delay de 0.8s o 1.0s 
-   para que entre justo cuando termina esta secuencia. */
-
-/* =========================================
-   6. EL "VOLANTAZO" DEL BOTÓN (Drift Entry)
-   ========================================= */
-
-@keyframes driftEntry {
-    0% {
-        opacity: 0;
-        /* Empieza FUERA de la pantalla a la izquierda (-100% del ancho) */
-        transform: translateX(-100vw) skewX(-30deg);
-    }
-    70% {
-        opacity: 1;
-        /* SE PASA DE FRENADA: Va más allá del centro (+40px) y se inclina */
-        transform: translateX(40px) skewX(20deg);
-    }
-    85% {
-        /* REBOTE: Corrige hacia atrás */
-        transform: translateX(-15px) skewX(-10deg);
-    }
-    100% {
-        opacity: 1;
-        /* FINAL: Se queda quieto en el centro */
-        transform: translateX(0) skewX(0);
-    }
-}
-
-.cta-button {
-    /* Estilos visuales */
-    padding: 15px 40px;
-    font-family: "Orbitron", sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: transparent;
-    position: relative;
-    overflow: hidden;
-
-    /* ANIMACIÓN */
-    opacity: 0; /* Empieza invisible */
-    /* La magia: 1.2 segundos de duración con una curva personalizada */
-    animation: driftEntry 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    animation-delay: 1.0s; /* Espera a que termine el texto */
-
-    /* IMPORTANTE: Quitamos 'transition' aquí para que no frene la entrada */
-}
-
-/* Efectos Hover (Solo se activan cuando pasas el mouse) */
-/* =========================================
-   7. ANIMACIÓN ÉPICA CORREGIDA (SOLUCIÓN DEFINITIVA)
-   ========================================= */
-
-@keyframes driftEntry {
-    0% {
-        opacity: 0;
-        /* Empieza FUERA de la pantalla (-100vw) */
-        transform: translateX(-100vw) skewX(-30deg);
-    }
-    70% {
-        opacity: 1;
-        /* FRENADA: Se pasa un poco (+40px) */
-        transform: translateX(40px) skewX(20deg);
-    }
-    85% {
-        /* REBOTE */
-        transform: translateX(-10px) skewX(-10deg);
-    }
-    100% {
-        opacity: 1;
-        /* FINAL */
-        transform: translateX(0) skewX(0);
-    }
-}
-
-.cta-button {
-    /* --- LA LÍNEA MÁGICA QUE FALTABA --- */
-    display: inline-block; /* SIN ESTO, NO SE MUEVE */
-    
-    /* Estilos visuales */
-    padding: 15px 40px;
-    font-family: "Orbitron", sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: transparent;
-    position: relative;
-    overflow: hidden;
-
-    /* ANIMACIÓN */
-    opacity: 0; 
-    animation: driftEntry 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    animation-delay: 0.40s; 
-}
-
-.cta-button:hover {
-    border-color: #ff4d4d;
-    background: rgba(255, 77, 77, 0.1);
-    box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
-    letter-spacing: 4px;
-    transition: all 0.3s ease;
-}
-
-
-/* =========================================
-   SECCIÓN SOBRE MÍ (Flow Infinito + Layout Pro)
-   ========================================= */
-
-.about-section {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px 20px;
-    position: relative;
-    /* CAMBIO CLAVE: Fondo transparente para que se vean las partículas del inicio */
-    background: transparent; 
-}
-
-.glass-container {
-    /* Fondo oscuro translúcido */
-    background: rgba(10, 10, 10, 0.8); 
-    backdrop-filter: blur(12px); /* Aumenté un poco el desenfoque */
-    
-    /* EL CAMBIO CLAVE: Borde rojo tech sutil (antes era blanco invisible) */
-    border: 1px solid rgba(255, 77, 77, 0.25);
-    
-    /* GLOW: Una sombra roja muy suave alrededor para que "flote" */
-    box-shadow: 0 0 40px rgba(255, 77, 77, 0.08), 
-                inset 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra interna para profundidad */
-    
-    border-radius: 20px;
-    padding: 60px;
-    max-width: 1000px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    
-    /* Transición suave por si quieres animar el hover luego */
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-/* OPCIONAL: Si quieres que brille un poco más al pasar el mouse por encima */
-.glass-container:hover {
-    border-color: rgba(255, 77, 77, 0.5);
-    box-shadow: 0 0 50px rgba(255, 77, 77, 0.15);
-}
-
-/* Título */
-.section-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    color: #fff;
-    /* Línea decorativa sutil */
-    border-bottom: 2px solid rgba(255, 77, 77, 0.5);
-    display: inline-block;
-    padding-bottom: 10px;
-}
-
-.highlight { color: #ff4d4d; }
-
-/* LAYOUT: FOTO IZQ - TEXTO DER */
-.about-content {
-    display: flex;
-    align-items: center; /* Centrados verticalmente */
-    gap: 60px; /* Espacio generoso entre foto y texto */
-}
-
-/* --- ESTILO DE LA FOTO (Cyber-Frame) --- */
-.image-column {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.profile-frame {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    border-radius: 15px;
-    /* Borde neón suave */
-    border: 2px solid rgba(255, 77, 77, 0.3);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.profile-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 13px; /* Un poco menos que el marco para que encaje */
-    filter: grayscale(100%); /* Efecto elegante: blanco y negro */
-    transition: filter 0.3s ease;
-}
-
-/* Efecto Hover: La foto cobra vida (color) y el marco brilla */
-.profile-frame:hover {
-    transform: scale(1.02);
-    border-color: #ff4d4d;
-    box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
-}
-
-.profile-frame:hover .profile-img {
-    filter: grayscale(0%); /* Vuelve al color original */
-}
-
-/* Esquinas decorativas Tech */
-.frame-corner {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ff4d4d;
-    transition: 0.3s;
-}
-
-.corner-1 { top: -5px; left: -5px; border-bottom: none; border-right: none; }
-.corner-2 { bottom: -5px; right: -5px; border-top: none; border-left: none; }
-
-/* --- ESTILO DEL TEXTO --- */
-.text-column {
-    flex: 1.5; /* El texto ocupa un poco más de espacio */
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #cccccc;
-    text-align: left;
-}
-
-.text-column p { margin-bottom: 20px; }
-
-/* Palabras clave en BLANCO (Ingeniería de Sistemas, Linux) */
-.text-highlight {
-    color: #ffffff; /* Blanco puro */
-    font-weight: bold;
-    /* Un resplandor blanco muy suave para que brille un poco */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
-}
-
-/* --- MINI STATS (Más limpio que la tabla anterior) --- */
-/* --- CORRECCIÓN DE ALINEACIÓN DE STATS --- */
-.mini-stats {
-    display: flex;
-    gap: 20px; /* Reduje un poco el espacio para que quepan mejor */
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* ESTO ES CLAVE: Permite que si no caben, bajen ordenadamente */
-    flex-wrap: wrap; 
-}
-
-.stat-item {
-    font-size: 0.9rem;
-    color: #fff;
-    
-    /* EL TRUCO: Prohíbe que el texto se parta en dos líneas */
-    white-space: nowrap; 
-}
-
-.stat-label {
-    color: #ff4d4d;
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.blink { animation: blink 1.5s infinite; }
-
-/* --- RESPONSIVE (Celulares) --- */
-@media (max-width: 900px) {
-    .about-content {
-        flex-direction: column; /* Uno encima del otro */
-        text-align: center;
-    }
-    
-    .text-column { text-align: center; }
-    
-    .mini-stats {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-}
-/* =========================================
-   SECCIÓN 02: HABILIDADES (GRID HOLOGRÁFICA)
-   ========================================= */
-
-.skills-section {
-    padding: 100px 20px;
-    background: transparent; /* Seguimos viendo las partículas */
-    display: flex;
-    justify-content: center;
-}
-
-/* Contenedor para centrar y limitar ancho */
-.skills-section .container {
-    max-width: 1000px;
-    width: 100%;
-    text-align: left; /* Título alineado a la izquierda */
-}
-
-/* LA GRILLA: 3 columnas en PC, 1 en celular */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
-
-/* --- LA TARJETA (CARD) --- */
-.skill-card {
-    background: rgba(15, 15, 15, 0.7); /* Oscuro semitransparente */
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 30px 20px;
-    text-align: center;
-    
-    /* Transición suave para el hover */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    
-    /* Para que el icono y texto se acomoden */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-/* --- EFECTO HOVER (LA MAGIA) --- */
-.skill-card:hover {
-    transform: translateY(-10px); /* Flota hacia arriba */
-    border-color: #ff4d4d; /* Borde rojo neón */
-    
-    /* Resplandor rojo intenso */
-    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.15), 
-                inset 0 0 10px rgba(255, 77, 77, 0.05);
-}
-
-/* Iconos (tamaño y color) */
-.skill-icon {
-    font-size: 4rem; /* Iconos grandes */
-    color: #e0e0e0; /* Blanco apagado por defecto */
-    transition: color 0.3s ease;
-}
-
-/* Al pasar el mouse por la tarjeta, el icono se pinta de rojo */
-.skill-card:hover .skill-icon {
-    color: #ff4d4d;
-    text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
-}
-
-/* Texto de la habilidad */
-.skill-name {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    color: #fff;
-    letter-spacing: 1px;
-}
-
-.skill-desc {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
-    color: #888;
-}
-
-/* --- TEXTO INTRODUCTORIO DE HABILIDADES --- */
-.skills-intro {
-    max-width: 700px; /* Que no sea muy ancho para que se lea fácil */
-    margin: 0 auto 50px auto; /* Centrado y separado de las tarjetas de abajo */
-    text-align: center;
-}
-
-.skills-intro p {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #cccccc; /* Gris claro, no blanco puro para no cansar */
-}
-
-/* Un pequeño detalle para las palabras en negrita dentro del texto */
-.skills-intro strong {
-    color: #fff;
-    font-weight: normal; /* La fuente mono ya es gruesa, no necesita bold */
-    border-bottom: 1px solid rgba(255, 77, 77, 0.5); /* Subrayado sutil rojo */
-}
-
-
-/* ===============================
-   HERO: frase y botones
-   =============================== */
 .hero-phrase {
-    font-size: 1.05rem;
-    color: #d1d1d1;
-    margin-bottom: 28px;
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-bottom: 35px;
     letter-spacing: 0.5px;
 }
 
@@ -554,76 +180,345 @@ body {
     justify-content: center;
 }
 
-.cta-button--secondary {
-    border-color: rgba(255, 77, 77, 0.6);
-    color: #fff;
+/* =========================================
+   4. ANIMACIONES DE ENTRADA (HERO)
+   ========================================= */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-.cta-button--secondary:hover {
-    border-color: #ff4d4d;
-    background: rgba(255, 77, 77, 0.12);
+@keyframes driftEntry {
+    0%   { opacity: 0; transform: translateX(-100vw) skewX(-30deg); }
+    70%  { opacity: 1; transform: translateX(40px) skewX(20deg); }
+    85%  { transform: translateX(-10px) skewX(-10deg); }
+    100% { opacity: 1; transform: translateX(0) skewX(0); }
 }
 
-/* ===============================
-   NOTA DE HABILIDADES
-   =============================== */
-.skills-note {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0.95rem;
-    color: #bdbdbd;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 20px;
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
 }
 
-/* ===============================
-   PROYECTOS
-   =============================== */
-.projects-section {
-    padding: 100px 20px;
+.greeting  { opacity: 0; animation: fadeInUp 0.8s ease-out 0.2s forwards; }
+.name      { opacity: 0; animation: fadeInUp 0.8s ease-out 0.3s forwards; }
+.subtitle  { opacity: 0; animation: fadeInUp 0.8s ease-out 0.4s forwards; }
+.hero-phrase { opacity: 0; animation: fadeInUp 0.8s ease-out 0.5s forwards; }
+
+/* =========================================
+   5. BOTÓN CTA
+   ========================================= */
+.cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     background: transparent;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: driftEntry 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.7s forwards;
+    transition: border-color 0.3s ease, background 0.3s ease,
+                box-shadow 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.cta-button:hover {
+    border-color: var(--red);
+    background: var(--red-dim);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+    letter-spacing: 4px;
+}
+
+.cta-button--secondary {
+    border-color: var(--red-border);
+}
+
+/* =========================================
+   6. SECCIÓN SOBRE MÍ
+   ========================================= */
+.about-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 20px;
+}
+
+.glass-container {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--red-border);
+    box-shadow: 0 0 40px rgba(255, 77, 77, 0.08),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 60px;
+    max-width: 1000px;
+    width: 100%;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-container:hover {
+    border-color: rgba(255, 77, 77, 0.5);
+    box-shadow: 0 0 50px rgba(255, 77, 77, 0.12);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    color: var(--text);
+    border-bottom: 2px solid var(--red-border);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.highlight { color: var(--red); }
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.image-column {
+    flex: 1;
     display: flex;
     justify-content: center;
 }
 
-.projects-section .container {
+.profile-frame {
+    position: relative;
+    width: 270px;
+    height: 270px;
+    border-radius: 15px;
+    border: 2px solid var(--red-border);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.profile-frame:hover {
+    transform: scale(1.02);
+    border-color: var(--red);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
+}
+
+.profile-frame:hover .profile-img { filter: grayscale(0%); }
+
+.frame-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--red);
+}
+
+.corner-1 { top: -5px; left: -5px; border-bottom: none; border-right: none; }
+.corner-2 { bottom: -5px; right: -5px; border-top: none; border-left: none; }
+
+.text-column {
+    flex: 1.5;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.text-column p { margin-bottom: 20px; }
+
+.text-highlight {
+    color: var(--text);
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.mini-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+    font-size: 0.9rem;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.stat-label {
+    color: var(--red);
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.blink { animation: blink 1.5s step-end infinite; }
+
+/* =========================================
+   7. HABILIDADES
+   ========================================= */
+.skills-section {
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.skills-section .container,
+.projects-section .container,
+.contact-section .container {
     max-width: 1000px;
     width: 100%;
 }
 
+.skills-intro {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.skills-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.skills-intro strong {
+    color: var(--text);
+    font-weight: normal;
+    border-bottom: 1px solid var(--red-border);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.skill-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--red);
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.15),
+                inset 0 0 10px rgba(255, 77, 77, 0.05);
+}
+
+.skill-icon {
+    font-size: 3.5rem;
+    color: #e0e0e0;
+    transition: color 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+    color: var(--red);
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+}
+
+.skill-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text);
+    letter-spacing: 1px;
+}
+
+.skill-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+.skills-note {
+    margin-top: 35px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #bdbdbd;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding-top: 20px;
+}
+
+/* =========================================
+   8. PROYECTOS
+   ========================================= */
+.projects-section {
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+}
+
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     margin-top: 40px;
 }
 
 .project-card {
-    background: rgba(15, 15, 15, 0.75);
+    background: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    padding: 25px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .project-card:hover {
     transform: translateY(-6px);
-    border-color: #ff4d4d;
+    border-color: var(--red);
     box-shadow: 0 10px 30px rgba(255, 77, 77, 0.12);
 }
 
+.project-number {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: rgba(255, 77, 77, 0.08);
+    position: absolute;
+    top: 10px; right: 20px;
+    line-height: 1;
+    pointer-events: none;
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .project-number {
+    color: rgba(255, 77, 77, 0.18);
+}
+
 .project-title {
-    font-family: 'Orbitron', sans-serif;
-    color: #fff;
-    font-size: 1.1rem;
+    font-family: var(--font-display);
+    color: var(--text);
+    font-size: 1.05rem;
     margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
 .project-desc {
-    color: #bdbdbd;
-    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 .project-tags {
@@ -634,9 +529,9 @@ body {
 }
 
 .tag {
-    font-size: 0.75rem;
-    color: #ff4d4d;
-    border: 1px solid rgba(255, 77, 77, 0.35);
+    font-size: 0.72rem;
+    color: var(--red);
+    border: 1px solid var(--red-border);
     padding: 4px 10px;
     border-radius: 4px;
     background: rgba(255, 77, 77, 0.06);
@@ -649,72 +544,123 @@ body {
 
 .btn-link {
     display: inline-block;
-    padding: 8px 14px;
-    font-size: 0.85rem;
+    padding: 8px 16px;
+    font-size: 0.82rem;
     text-decoration: none;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     transition: all 0.3s ease;
 }
 
 .btn-link:hover {
-    border-color: #ff4d4d;
-    background: rgba(255, 77, 77, 0.1);
+    border-color: var(--red);
+    background: var(--red-dim);
 }
 
 .btn-link--secondary {
-    border-color: rgba(255, 77, 77, 0.6);
+    border-color: var(--red-border);
 }
 
-/* ===============================
-   CONTACTO
-   =============================== */
+/* =========================================
+   9. CONTACTO
+   ========================================= */
 .contact-section {
     padding: 100px 20px 60px;
-    background: transparent;
     display: flex;
     justify-content: center;
     text-align: center;
 }
 
-.contact-section .container {
-    max-width: 900px;
-    width: 100%;
+.contact-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--text);
+    margin: 12px 0 10px;
 }
 
-.contact-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.6rem;
-    color: #fff;
-    margin: 10px 0 30px;
+.contact-sub {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 35px;
 }
 
 .contact-links {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 
 .contact-link {
-    color: #ff4d4d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--red);
     text-decoration: none;
+    font-size: 1rem;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, color 0.3s ease;
+    padding-bottom: 2px;
 }
 
 .contact-link:hover {
-    border-color: #ff4d4d;
+    color: var(--text);
+    border-color: var(--red);
 }
 
-/* ===============================
-   FOOTER
-   =============================== */
+.contact-link i {
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   10. FOOTER
+   ========================================= */
 .site-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     text-align: center;
-    color: #8a8a8a;
-    padding: 30px 20px 60px;
-    font-size: 0.9rem;
+    color: #555;
+    padding: 30px 20px 50px;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.site-footer a {
+    color: var(--red);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.site-footer a:hover { color: var(--text); }
+
+.footer-sep { color: #333; }
+
+/* =========================================
+   11. RESPONSIVE (MÓVIL)
+   ========================================= */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 16px 24px;
+    }
+    
+    .nav-links {
+        display: none; /* Menú hamburguesa futuro */
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-column { text-align: center; }
+
+    .mini-stats { justify-content: center; }
+
+    .glass-container { padding: 35px 25px; }
+
+    .section-title { font-size: 1.8rem; }
 }
