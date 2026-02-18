@@ -535,3 +535,186 @@ body {
     font-weight: normal; /* La fuente mono ya es gruesa, no necesita bold */
     border-bottom: 1px solid rgba(255, 77, 77, 0.5); /* Subrayado sutil rojo */
 }
+
+
+/* ===============================
+   HERO: frase y botones
+   =============================== */
+.hero-phrase {
+    font-size: 1.05rem;
+    color: #d1d1d1;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+}
+
+.cta-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-button--secondary {
+    border-color: rgba(255, 77, 77, 0.6);
+    color: #fff;
+}
+
+.cta-button--secondary:hover {
+    border-color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.12);
+}
+
+/* ===============================
+   NOTA DE HABILIDADES
+   =============================== */
+.skills-note {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #bdbdbd;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+}
+
+/* ===============================
+   PROYECTOS
+   =============================== */
+.projects-section {
+    padding: 100px 20px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+.projects-section .container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.project-card {
+    background: rgba(15, 15, 15, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    border-color: #ff4d4d;
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.12);
+}
+
+.project-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.project-desc {
+    color: #bdbdbd;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.project-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tag {
+    font-size: 0.75rem;
+    color: #ff4d4d;
+    border: 1px solid rgba(255, 77, 77, 0.35);
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(255, 77, 77, 0.06);
+}
+
+.project-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-link {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    border-color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.1);
+}
+
+.btn-link--secondary {
+    border-color: rgba(255, 77, 77, 0.6);
+}
+
+/* ===============================
+   CONTACTO
+   =============================== */
+.contact-section {
+    padding: 100px 20px 60px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.contact-section .container {
+    max-width: 900px;
+    width: 100%;
+}
+
+.contact-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    color: #fff;
+    margin: 10px 0 30px;
+}
+
+.contact-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.contact-link {
+    color: #ff4d4d;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.contact-link:hover {
+    border-color: #ff4d4d;
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+.site-footer {
+    text-align: center;
+    color: #8a8a8a;
+    padding: 30px 20px 60px;
+    font-size: 0.9rem;
+}
