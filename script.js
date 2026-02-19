@@ -153,3 +153,63 @@ if (hamburger) {
         });
     });
 }
+
+/* =========================================
+   SLIDER DE PROYECTOS
+   ========================================= */
+const slider = document.getElementById('projectsSlider');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.getElementById('sliderDots');
+
+if (slider) {
+    const cards = slider.querySelectorAll('.project-card');
+    let current = 0;
+
+    // Crear dots
+    cards.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('slider-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+    });
+
+    function updateDots() {
+        dotsContainer.querySelectorAll('.slider-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    function goTo(index) {
+        current = Math.max(0, Math.min(index, cards.length - 1));
+        cards[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        updateDots();
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // Arrastrar con mouse
+    let isDown = false, startX, scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => isDown = false);
+    slider.addEventListener('mouseup', () => isDown = false);
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 1.5;
+    });
+
+    // Detectar qué tarjeta está visible al scrollear
+    slider.addEventListener('scroll', () => {
+        const cardWidth = cards[0].offsetWidth + 25;
+        current = Math.round(slider.scrollLeft / cardWidth);
+        updateDots();
+    }, { passive: true });
+}

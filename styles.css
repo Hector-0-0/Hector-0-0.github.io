@@ -476,7 +476,7 @@ body {
 }
 
 /* =========================================
-   8. PROYECTOS
+   8. PROYECTOS — SLIDER
    ========================================= */
 .projects-section {
     padding: 100px 20px;
@@ -484,79 +484,136 @@ body {
     justify-content: center;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
 }
 
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid var(--red-border);
+    color: var(--red);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-btn:hover {
+    background: var(--red-dim);
+    border-color: var(--red);
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+}
+
+.slider-btn.prev { left: -22px; }
+.slider-btn.next { right: -22px; }
+
+.projects-grid {
+    display: flex;
+    gap: 25px;
+    margin-top: 40px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    cursor: grab;
+    padding-bottom: 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.projects-grid::-webkit-scrollbar { display: none; }
+.projects-grid:active { cursor: grabbing; }
+
 .project-card {
-    background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 28px;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--red-border);
+    box-shadow: 0 0 40px rgba(255, 77, 77, 0.08),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 50px 60px;
     position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    min-width: min(1000px, calc(100vw - 80px));
+    max-width: min(1000px, calc(100vw - 80px));
+    min-height: 420px;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--red);
-    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.12);
+    border-color: rgba(255, 77, 77, 0.5);
+    box-shadow: 0 0 50px rgba(255, 77, 77, 0.12);
 }
 
 .project-number {
     font-family: var(--font-display);
-    font-size: 3rem;
+    font-size: 5rem;
     color: rgba(255, 77, 77, 0.08);
-    position: absolute;
-    top: 10px; right: 20px;
     line-height: 1;
-    pointer-events: none;
+    margin-bottom: 15px;
     transition: color 0.3s ease;
 }
 
-.project-card:hover .project-number { color: rgba(255, 77, 77, 0.18); }
+.project-card:hover .project-number {
+    color: rgba(255, 77, 77, 0.18);
+}
 
 .project-title {
     font-family: var(--font-display);
     color: var(--text);
-    font-size: 1rem;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
 }
 
 .project-desc {
     color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 18px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    flex-grow: 1;
 }
 
 .project-tags {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .tag {
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     color: var(--red);
     border: 1px solid var(--red-border);
-    padding: 4px 10px;
+    padding: 5px 14px;
     border-radius: 4px;
     background: rgba(255, 77, 77, 0.06);
 }
 
-.project-actions { display: flex; gap: 10px; }
+.project-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: auto;
+}
 
 .btn-link {
     display: inline-block;
-    padding: 8px 16px;
-    font-size: 0.82rem;
+    padding: 12px 28px;
+    font-size: 0.9rem;
     text-decoration: none;
     color: var(--text);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -570,6 +627,29 @@ body {
 }
 
 .btn-link--secondary { border-color: var(--red-border); }
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 77, 77, 0.2);
+    border: 1px solid var(--red-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+    background: var(--red);
+    box-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+    transform: scale(1.2);
+}
 
 /* =========================================
    9. CONTACTO
