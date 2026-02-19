@@ -48,7 +48,8 @@ body {
     z-index: 100;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* FIX: flex-end en desktop no aplica — en desktop los links se muestran centrados */
+    justify-content: center;
     padding: 18px 60px;
     background: rgba(5, 5, 5, 0);
     border-bottom: 1px solid transparent;
@@ -59,15 +60,6 @@ body {
     background: rgba(5, 5, 5, 0.95);
     backdrop-filter: blur(12px);
     border-color: var(--red-border);
-}
-
-.nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--text);
-    flex-shrink: 0;
 }
 
 .nav-links {
@@ -97,24 +89,7 @@ body {
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { width: 100%; }
 
-.nav-cv {
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: var(--red);
-    text-decoration: none;
-    border: 1px solid var(--red-border);
-    padding: 8px 18px;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-.nav-cv:hover {
-    background: var(--red-dim);
-    border-color: var(--red);
-}
-
-/* Hamburger (oculto en desktop) */
+/* Hamburger — oculto en desktop */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -212,11 +187,6 @@ body {
     100% { opacity: 1; transform: translateX(0) skewX(0); }
 }
 
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
-}
-
 .greeting    { opacity: 0; animation: fadeInUp 0.8s ease-out 0.2s forwards; }
 .name        { opacity: 0; animation: fadeInUp 0.8s ease-out 0.3s forwards; }
 .subtitle    { opacity: 0; animation: fadeInUp 0.8s ease-out 0.4s forwards; }
@@ -249,8 +219,6 @@ body {
     letter-spacing: 4px;
 }
 
-.cta-button--secondary { border-color: var(--red-border); }
-
 /* =========================================
    6. SOBRE MÍ
    ========================================= */
@@ -259,8 +227,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 20px;
-    padding-top: 60px;
+    padding: 60px 20px;
 }
 
 .glass-container {
@@ -303,9 +270,6 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    width: 404px;
-    height: 400px;
-
 }
 
 .profile-frame {
@@ -385,8 +349,7 @@ body {
    7. HABILIDADES
    ========================================= */
 .skills-section {
-    padding: 0px 20px;
-    padding-top: 100px;
+    padding: 100px 20px;
     display: flex;
     justify-content: center;
 }
@@ -408,12 +371,6 @@ body {
     font-size: 1.05rem;
     line-height: 1.8;
     color: var(--text-muted);
-}
-
-.skills-intro strong {
-    color: var(--text);
-    font-weight: normal;
-    border-bottom: 1px solid var(--red-border);
 }
 
 .skills-grid {
@@ -464,15 +421,6 @@ body {
 .skill-desc {
     font-size: 0.8rem;
     color: var(--text-dim);
-}
-
-.skills-note {
-    margin-top: 35px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #bdbdbd;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-    padding-top: 20px;
 }
 
 /* =========================================
@@ -568,9 +516,7 @@ body {
     transition: color 0.3s ease;
 }
 
-.project-card:hover .project-number {
-    color: rgba(255, 77, 77, 0.18);
-}
+.project-card:hover .project-number { color: rgba(255, 77, 77, 0.18); }
 
 .project-title {
     font-family: var(--font-display);
@@ -655,10 +601,9 @@ body {
    9. CONTACTO
    ========================================= */
 .contact-section {
-    padding: 100px 20px 60px;
+    padding: 100px 20px 500px;
     display: flex;
     justify-content: center;
-    text-align: center;
 }
 
 .contact-title {
@@ -666,12 +611,14 @@ body {
     font-size: clamp(1.2rem, 3vw, 1.6rem);
     color: var(--text);
     margin: 12px 0 10px;
+    text-align: center;
 }
 
 .contact-sub {
     color: var(--text-dim);
     font-size: 0.95rem;
     margin-bottom: 35px;
+    text-align: center;
 }
 
 .contact-links {
@@ -726,27 +673,80 @@ body {
 .footer-sep { color: #333; }
 
 /* =========================================
-   11. RESPONSIVE — TABLET (max 1024px)
+   11. ALIEN DECORACIÓN
+   FIX: definido UNA sola vez aquí, sin duplicados
    ========================================= */
-@media (max-width: 1024px) {
-    .navbar { padding: 16px 30px; }
+.alien-deco {
+    position: fixed;
+    top: 16px;
+    left: 20px;
+    z-index: 999;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: default;
+    user-select: none;
+    animation: alienFloat 3.5s ease-in-out infinite,
+               alienGlow  3.5s ease-in-out infinite;
+    transform-origin: center;
+    transition: opacity 0.3s ease;
+}
 
-    .about-content { gap: 40px; }
+/* FIX: el alien se oculta cuando el menú está abierto */
+body.menu-open .alien-deco {
+    opacity: 0;
+    pointer-events: none;
+}
 
-    .glass-container { padding: 50px 40px; }
+.alien-deco:hover {
+    animation: alienWiggle  0.4s ease-in-out infinite,
+               alienGlowHot 0.4s ease-in-out infinite;
+    cursor: none;
+}
 
-    .skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    }
+@keyframes alienFloat {
+    0%,100% { transform: translateY(0px)   rotate(-4deg) scaleX(1);    }
+    30%      { transform: translateY(-8px)  rotate( 4deg) scaleX(0.95); }
+    60%      { transform: translateY(-12px) rotate( 0deg) scaleX(1.04); }
+}
+
+@keyframes alienGlow {
+    0%,100% { filter: drop-shadow(0 0  6px rgba(255,77,77,0.5)); }
+    50%      { filter: drop-shadow(0 0 16px rgba(255,77,77,0.9))
+                       drop-shadow(0 0 28px rgba(255,77,77,0.4)); }
+}
+
+@keyframes alienWiggle {
+    0%,100% { transform: rotate(-6deg) scale(1.1);  }
+    50%      { transform: rotate( 6deg) scale(1.15); }
+}
+
+@keyframes alienGlowHot {
+    0%,100% { filter: drop-shadow(0 0 14px rgba(255,80,0,0.9)); }
+    50%      { filter: drop-shadow(0 0 28px rgba(255,200,0,1))
+                       drop-shadow(0 0 50px rgba(255,80,0,0.6)); }
 }
 
 /* =========================================
-   12. RESPONSIVE — MÓVIL (max 768px)
+   12. RESPONSIVE — TABLET (max 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    .navbar { padding: 16px 30px; }
+    .about-content { gap: 40px; }
+    .glass-container { padding: 50px 40px; }
+    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+
+/* =========================================
+   13. RESPONSIVE — MÓVIL (max 768px)
+   FIX: sin duplicados, hamburger a la derecha
    ========================================= */
 @media (max-width: 768px) {
 
-    /* --- Navbar --- */
-    .navbar { padding: 14px 20px; }
+    /* Navbar: hamburger a la derecha */
+    .navbar {
+        justify-content: flex-end;
+        padding: 14px 20px;
+    }
 
     .nav-links {
         display: none;
@@ -770,93 +770,56 @@ body {
 
     .hamburger { display: flex; z-index: 101; }
 
-    .nav-cv { display: none; } /* Se puede descargar desde el hero */
-
-    /* --- Hero --- */
+    /* Hero */
     .greeting { font-size: 1.3rem; }
-
     .hero-phrase { font-size: 0.9rem; }
+    .cta-button { padding: 12px 28px; font-size: 0.78rem; }
 
-    .cta-button {
-        padding: 12px 28px;
-        font-size: 0.78rem;
-    }
-
-    /* --- Sobre mí --- */
+    /* Sobre mí */
     .about-section { padding: 100px 16px 80px; }
-
     .glass-container { padding: 30px 20px; }
-
-    .about-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 35px;
-    }
-
-    .profile-frame {
-        width: 200px;
-        height: 200px;
-    }
-
-    .text-column {
-        font-size: 0.95rem;
-        text-align: center;
-    }
-
-    .mini-stats {
-        justify-content: center;
-        gap: 12px;
-    }
-
+    .about-content { flex-direction: column; text-align: center; gap: 35px; }
+    .profile-frame { width: 200px; height: 200px; }
+    .text-column { font-size: 0.95rem; text-align: center; }
+    .mini-stats { justify-content: center; gap: 12px; }
     .stat-item { white-space: normal; text-align: center; }
 
-    /* --- Skills --- */
+    /* Skills */
     .skills-section { padding: 80px 16px; }
-
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-
+    .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
     .skill-card { padding: 20px 10px; }
-
     .skill-icon { font-size: 2.5rem; }
-
     .skill-name { font-size: 0.8rem; }
-
     .skills-intro p { font-size: 0.95rem; }
 
-    /* --- Proyectos --- */
+    /* Proyectos */
     .projects-section { padding: 80px 16px; }
 
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* --- Contacto --- */
+    /* Contacto */
     .contact-section { padding: 80px 16px 50px; }
-
     .contact-links { gap: 18px; }
 
-    /* --- Footer --- */
+    /* Footer */
     .site-footer { font-size: 0.78rem; gap: 6px; }
+
+    /* Alien más pequeño en móvil */
+    .alien-deco {
+        top: 10px;
+        left: 12px;
+        font-size: 1.4rem;
+    }
 }
 
 /* =========================================
-   13. RESPONSIVE — MÓVIL PEQUEÑO (max 400px)
+   14. RESPONSIVE — MÓVIL PEQUEÑO (max 400px)
    ========================================= */
 @media (max-width: 400px) {
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-
-    .cta-group {
-        flex-direction: column;
-        align-items: center;
-    }
-
+    .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cta-group { flex-direction: column; align-items: center; }
     .cta-button { width: 100%; text-align: center; }
-
     .glass-container { padding: 25px 16px; }
+}
+
+body.menu-open {
+    overflow: hidden;
 }

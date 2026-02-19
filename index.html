@@ -16,22 +16,16 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hector-0-0.github.io">
 
-    <!-- ★ FIX RENDER BLOCKING: Fuentes con display=swap y carga no bloqueante -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- display=swap evita que el texto sea invisible mientras carga la fuente -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     </noscript>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.jpg">
-
-    <!-- CSS propio — crítico, va en el head -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- ★ FIX RENDER BLOCKING: Devicons cargado de forma no bloqueante -->
     <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
@@ -39,16 +33,9 @@
 </head>
 <body>
 
-    <!-- ★ NAVEGACIÓN FIJA -->
+    <!-- NAVEGACIÓN FIJA -->
+    <!-- FIX: eliminados los <div> vacíos que empujaban el hamburger al centro -->
     <nav class="navbar" id="navbar">
-        <div class="nav-logo">HF<span class="dot">.</span></div>
-
-        <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
         <ul class="nav-links">
             <li><a href="#about">Sobre mí</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -56,12 +43,16 @@
             <li><a href="#contact">Contacto</a></li>
         </ul>
 
-        <a href="CV_Hector_Flores.pdf" class="nav-cv" download>CV ↓</a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
     <canvas id="canvas-background"></canvas>
 
-    <!-- ★ HERO -->
+    <!-- HERO -->
     <header class="hero" id="home">
         <div class="container">
             <p class="greeting">Hola, soy</p>
@@ -69,19 +60,20 @@
             <p class="subtitle">Full Stack & Odoo Developer | Ingeniero de Sistemas — UNI</p>
             <p class="hero-phrase">La imaginación es la base del cambio.</p>
             <div class="cta-group">
-                <a href="#projects" class="cta-button">Ver mi trabajo ↓</a>
+                <a href="CV_Hector_Flores.pdf" class="cta-button" download>
+                ⭳ Descargar CV
+                </a>
             </div>
         </div>
     </header>
 
-    <!-- ★ SOBRE MÍ -->
+    <!-- SOBRE MÍ -->
     <section class="about-section" id="about">
         <div class="glass-container">
             <h2 class="section-title">01. <span class="highlight">Sobre Mí</span></h2>
             <div class="about-content">
                 <div class="image-column">
                     <div class="profile-frame">
-                        <!-- ★ FIX: loading="lazy" para no bloquear el LCP -->
                         <img src="foto.jpg" alt="Foto de Héctor Flores" class="profile-img" loading="lazy" width="260" height="260">
                         <div class="frame-corner corner-1"></div>
                         <div class="frame-corner corner-2"></div>
@@ -115,14 +107,12 @@
         </div>
     </section>
 
-    <!-- ★ HABILIDADES -->
+    <!-- HABILIDADES -->
     <section class="skills-section" id="skills">
         <div class="container">
             <h2 class="section-title">02. <span class="highlight">Habilidades</span></h2>
             <div class="skills-intro">
-                <p>
-                    No elijo tecnologías por moda, sino por eficiencia.
-                </p>
+                <p>No elijo tecnologías por moda, sino por eficiencia.</p>
             </div>
             <div class="skills-grid">
                 <div class="skill-card">
@@ -179,7 +169,7 @@
         </div>
     </section>
 
-    <!-- ★ PROYECTOS -->
+    <!-- PROYECTOS -->
     <section class="projects-section" id="projects">
         <div class="container">
             <h2 class="section-title">03. <span class="highlight">Proyectos</span></h2>
@@ -187,8 +177,6 @@
                 <button class="slider-btn prev" id="prevBtn">‹</button>
                 <button class="slider-btn next" id="nextBtn">›</button>
                 <div class="projects-grid" id="projectsSlider">
-
-                    <!-- PROYECTO 01 -->
                     <div class="project-card">
                         <div class="project-number">01</div>
                         <h3 class="project-title">Nombre del proyecto</h3>
@@ -203,8 +191,6 @@
                             <a href="LINK_DEMO" class="btn-link btn-link--secondary" target="_blank" rel="noopener">↗ Demo</a>
                         </div>
                     </div>
-
-                    <!-- PROYECTO 02 -->
                     <div class="project-card">
                         <div class="project-number">02</div>
                         <h3 class="project-title">Nombre del proyecto</h3>
@@ -219,8 +205,6 @@
                             <a href="LINK_DEMO" class="btn-link btn-link--secondary" target="_blank" rel="noopener">↗ Demo</a>
                         </div>
                     </div>
-
-                    <!-- PROYECTO 03 -->
                     <div class="project-card">
                         <div class="project-number">03</div>
                         <h3 class="project-title">Nombre del proyecto</h3>
@@ -235,8 +219,6 @@
                             <a href="LINK_DEMO" class="btn-link btn-link--secondary" target="_blank" rel="noopener">↗ Demo</a>
                         </div>
                     </div>
-
-                    <!-- PROYECTO 04 -->
                     <div class="project-card">
                         <div class="project-number">04</div>
                         <h3 class="project-title">Nombre del proyecto</h3>
@@ -251,8 +233,6 @@
                             <a href="LINK_DEMO" class="btn-link btn-link--secondary" target="_blank" rel="noopener">↗ Demo</a>
                         </div>
                     </div>
-
-                    <!-- PROYECTO 05 -->
                     <div class="project-card">
                         <div class="project-number">05</div>
                         <h3 class="project-title">Nombre del proyecto</h3>
@@ -267,15 +247,13 @@
                             <a href="LINK_DEMO" class="btn-link btn-link--secondary" target="_blank" rel="noopener">↗ Demo</a>
                         </div>
                     </div>
-
-                </div> <!-- fin projects-grid -->
+                </div>
                 <div class="slider-dots" id="sliderDots"></div>
-            </div> <!-- fin slider-wrapper -->
-        </div> <!-- fin container -->
+            </div>
+        </div>
     </section>
 
-
-    <!-- ★ CONTACTO -->
+    <!-- CONTACTO -->
     <section class="contact-section" id="contact">
         <div class="container">
             <h2 class="section-title">04. <span class="highlight">Contacto</span></h2>
@@ -285,7 +263,6 @@
                 <a class="contact-link" href="https://github.com/Hector-0-0" target="_blank" rel="noopener">
                     <i class="devicon-github-original"></i> GitHub
                 </a>
-                <!-- REEMPLAZAR: Actualiza con tu URL real de LinkedIn -->
                 <a class="contact-link" href="https://www.linkedin.com/in/h%C3%A9ctor-david-flores-s%C3%A1nchez-76b636354/" target="_blank" rel="noopener">
                     <i class="devicon-linkedin-plain"></i> LinkedIn
                 </a>
@@ -293,9 +270,6 @@
                     ✉ Email
                 </a>
             </div>
-            <a href="CV_Hector_Flores.pdf" class="cta-button cta-button--secondary" download>
-                ⭳ Descargar CV
-            </a>
         </div>
     </section>
 
@@ -304,6 +278,9 @@
         <span>Hecho con código y café</span>
         <span class="footer-sep">—</span>
     </footer>
+
+    <!-- FIX: alien fuera del nav, independiente -->
+    <div class="alien-deco">👾</div>
 
     <script src="script.js"></script>
 </body>

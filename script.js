@@ -1,5 +1,5 @@
 /* =========================================
-   CANVAS — PARTÍCULAS ULTRA OPTIMIZADAS
+   CANVAS — PARTÍCULAS OPTIMIZADAS
    ========================================= */
 const canvas = document.getElementById('canvas-background');
 const ctx = canvas.getContext('2d');
@@ -8,19 +8,11 @@ let particlesArray = [];
 let animationId;
 let isVisible = true;
 
-// Detectar móvil una sola vez al cargar
 const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)
     || window.innerWidth < 768;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
-// En móvil no rastrear mouse (ahorra CPU)
-if (!isMobile) {
-    window.addEventListener('mousemove', (e) => {
-        // disponible para futuras interacciones
-    }, { passive: true });
-}
 
 function getParticleCount() {
     if (isMobile) return 20;
@@ -56,7 +48,6 @@ class Particle {
     }
 }
 
-// En móvil no dibujar líneas — gran ahorro de CPU
 function connect() {
     if (isMobile) return;
     for (let a = 0; a < particlesArray.length; a++) {
@@ -85,7 +76,6 @@ function init() {
     }
 }
 
-// Limitar FPS: 30 en móvil, 60 en desktop
 let lastTime = 0;
 const FRAME_INTERVAL = isMobile ? 1000 / 30 : 1000 / 60;
 
@@ -100,7 +90,6 @@ function animate(timestamp = 0) {
     connect();
 }
 
-// Pausar cuando la pestaña no está activa
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         isVisible = false;
@@ -111,7 +100,6 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-// Resize con debounce
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
@@ -135,7 +123,8 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* =========================================
-   NAVBAR — Menú hamburguesa (móvil)
+   NAVBAR — Menú hamburguesa
+   FIX: agrega body.menu-open para ocultar el alien
    ========================================= */
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.querySelector('.nav-links');
@@ -144,12 +133,16 @@ if (hamburger) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navLinks.classList.toggle('open');
+        // FIX: esto activa el CSS que oculta el alien
+        document.body.classList.toggle('menu-open');
     });
 
+    // Al hacer click en un link del menú, cerrar todo
     navLinks.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navLinks.classList.remove('open');
+            document.body.classList.remove('menu-open');
         });
     });
 }
@@ -166,7 +159,6 @@ if (slider) {
     const cards = slider.querySelectorAll('.project-card');
     let current = 0;
 
-    // Crear dots
     cards.forEach((_, i) => {
         const dot = document.createElement('div');
         dot.classList.add('slider-dot');
@@ -190,7 +182,6 @@ if (slider) {
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
 
-    // Arrastrar con mouse
     let isDown = false, startX, scrollLeft;
 
     slider.addEventListener('mousedown', (e) => {
@@ -206,7 +197,6 @@ if (slider) {
         slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 1.5;
     });
 
-    // Detectar qué tarjeta está visible al scrollear
     slider.addEventListener('scroll', () => {
         const cardWidth = cards[0].offsetWidth + 25;
         current = Math.round(slider.scrollLeft / cardWidth);
