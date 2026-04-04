@@ -1,0 +1,827 @@
+/* =========================================
+   VARIABLES GLOBALES
+   ========================================= */
+:root {
+    --red: #ff4d4d;
+    --red-dim: rgba(255, 77, 77, 0.15);
+    --red-border: rgba(255, 77, 77, 0.3);
+    --bg: #050505;
+    --bg-card: rgba(15, 15, 15, 0.75);
+    --text: #ffffff;
+    --text-muted: #cccccc;
+    --text-dim: #888888;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-display: 'Orbitron', sans-serif;
+}
+
+/* =========================================
+   1. RESET & BASE
+   ========================================= */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    overflow-x: hidden;
+}
+
+#canvas-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+}
+
+/* =========================================
+   2. NAVBAR
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    /* FIX: flex-end en desktop no aplica — en desktop los links se muestran centrados */
+    justify-content: center;
+    padding: 18px 60px;
+    background: rgba(5, 5, 5, 0);
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(12px);
+    border-color: var(--red-border);
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--red);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Hamburger — oculto en desktop */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =========================================
+   3. HERO
+   ========================================= */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.greeting {
+    font-family: var(--font-mono);
+    font-size: 1.8rem;
+    color: var(--red);
+    margin-bottom: -5px;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+}
+
+.name {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 9vw, 6rem);
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.2),
+                 0 0 30px rgba(255, 77, 77, 0.1);
+}
+
+.dot {
+    color: var(--red);
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
+}
+
+.subtitle {
+    font-size: clamp(0.8rem, 2.5vw, 1.05rem);
+    color: #d1d1d1;
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0 auto 10px;
+    letter-spacing: 0.5px;
+}
+
+.hero-phrase {
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-bottom: 35px;
+}
+
+.cta-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* =========================================
+   4. ANIMACIONES (HERO)
+   ========================================= */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes driftEntry {
+    0%   { opacity: 0; transform: translateX(-100vw) skewX(-30deg); }
+    70%  { opacity: 1; transform: translateX(40px) skewX(20deg); }
+    85%  { transform: translateX(-10px) skewX(-10deg); }
+    100% { opacity: 1; transform: translateX(0) skewX(0); }
+}
+
+.greeting    { opacity: 0; animation: fadeInUp 0.8s ease-out 0.2s forwards; }
+.name        { opacity: 0; animation: fadeInUp 0.8s ease-out 0.3s forwards; }
+.subtitle    { opacity: 0; animation: fadeInUp 0.8s ease-out 0.4s forwards; }
+.hero-phrase { opacity: 0; animation: fadeInUp 0.8s ease-out 0.5s forwards; }
+
+/* =========================================
+   5. BOTÓN CTA
+   ========================================= */
+.cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    opacity: 0;
+    animation: driftEntry 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.7s forwards;
+    transition: border-color 0.3s ease, background 0.3s ease,
+                box-shadow 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.cta-button:hover {
+    border-color: var(--red);
+    background: var(--red-dim);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.4);
+    letter-spacing: 4px;
+}
+
+/* =========================================
+   6. SOBRE MÍ
+   ========================================= */
+.about-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+    padding-top: 60px;
+    padding-bottom: 100px;
+}
+
+.glass-container {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--red-border);
+    box-shadow: 0 0 40px rgba(255, 77, 77, 0.08),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 60px;
+    max-width: 1000px;
+    width: 100%;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-container:hover {
+    border-color: rgba(255, 77, 77, 0.5);
+    box-shadow: 0 0 50px rgba(255, 77, 77, 0.12);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    margin-bottom: 10px;
+    color: var(--text);
+    border-bottom: 2px solid var(--red-border);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.highlight { color: var(--red); }
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.image-column {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-frame {
+    position: relative;
+    width: 304px;
+    height: 304px;
+    border-radius: 15px;
+    border: 2px solid var(--red-border);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.profile-frame:hover {
+    transform: scale(1.02);
+    border-color: var(--red);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
+}
+
+.profile-frame:hover .profile-img { filter: grayscale(0%); }
+
+.frame-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--red);
+}
+
+.corner-1 { top: -5px; left: -5px; border-bottom: none; border-right: none; }
+.corner-2 { bottom: -5px; right: -5px; border-top: none; border-left: none; }
+
+.text-column {
+    flex: 1.5;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.text-column p { margin-bottom: 20px; }
+
+.text-highlight {
+    color: var(--text);
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.mini-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+    font-size: 0.9rem;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.stat-label {
+    color: var(--red);
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+/* =========================================
+   7. HABILIDADES
+   ========================================= */
+.skills-section {
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.skills-section .container,
+.projects-section .container,
+.contact-section .container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.skills-intro {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.skills-intro p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.skill-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 25px 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--red);
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.15);
+}
+
+.skill-icon {
+    font-size: 3rem;
+    color: #e0e0e0;
+    transition: color 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+    color: var(--red);
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+}
+
+.skill-name {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text);
+    letter-spacing: 1px;
+}
+
+.skill-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+/* =========================================
+   8. PROYECTOS — SLIDER
+   ========================================= */
+.projects-section {
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid var(--red-border);
+    color: var(--red);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-btn:hover {
+    background: var(--red-dim);
+    border-color: var(--red);
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+}
+
+.slider-btn.prev { left: -22px; }
+.slider-btn.next { right: -22px; }
+
+.projects-grid {
+    display: flex;
+    gap: 25px;
+    margin-top: 40px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    cursor: grab;
+    padding-bottom: 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.projects-grid::-webkit-scrollbar { display: none; }
+.projects-grid:active { cursor: grabbing; }
+
+.project-card {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--red-border);
+    box-shadow: 0 0 40px rgba(255, 77, 77, 0.08),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 50px 60px;
+    position: relative;
+    min-width: min(1000px, calc(100vw - 80px));
+    max-width: min(1000px, calc(100vw - 80px));
+    min-height: 420px;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: rgba(255, 77, 77, 0.5);
+    box-shadow: 0 0 50px rgba(255, 77, 77, 0.12);
+}
+
+.project-number {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    color: rgba(255, 77, 77, 0.08);
+    line-height: 1;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .project-number { color: rgba(255, 77, 77, 0.18); }
+
+.project-title {
+    font-family: var(--font-display);
+    color: var(--text);
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.project-desc {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    flex-grow: 1;
+}
+
+.project-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.tag {
+    font-size: 0.8rem;
+    color: var(--red);
+    border: 1px solid var(--red-border);
+    padding: 5px 14px;
+    border-radius: 4px;
+    background: rgba(255, 77, 77, 0.06);
+}
+
+.project-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: auto;
+}
+
+.btn-link {
+    display: inline-block;
+    padding: 12px 28px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    border-color: var(--red);
+    background: var(--red-dim);
+}
+
+.btn-link--secondary { border-color: var(--red-border); }
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 77, 77, 0.2);
+    border: 1px solid var(--red-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+    background: var(--red);
+    box-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+    transform: scale(1.2);
+}
+
+/* =========================================
+   9. CONTACTO
+   ========================================= */
+.contact-section {
+    padding: 100px 20px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    color: var(--text);
+    margin: 12px 0 10px;
+    text-align: center;
+}
+
+.contact-sub {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.contact-links {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--red);
+    text-decoration: none;
+    font-size: 1rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, color 0.3s ease;
+    padding-bottom: 2px;
+}
+
+.contact-link:hover {
+    color: var(--text);
+    border-color: var(--red);
+}
+
+.contact-link i { font-size: 1.2rem; }
+
+/* =========================================
+   10. FOOTER
+   ========================================= */
+.site-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    color: #555;
+    padding: 30px 20px 50px;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.site-footer a {
+    color: var(--red);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.site-footer a:hover { color: var(--text); }
+.footer-sep { color: #333; }
+
+/* =========================================
+   11. ALIEN DECORACIÓN
+   FIX: definido UNA sola vez aquí, sin duplicados
+   ========================================= */
+.alien-deco {
+    position: fixed;
+    top: 16px;
+    left: 20px;
+    z-index: 999;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: default !important;
+    user-select: none;
+    animation: alienFloat 3.5s ease-in-out infinite,
+               alienGlow  3.5s ease-in-out infinite;
+    transform-origin: center;
+    transition: opacity 0.3s ease;
+}
+
+/* FIX: el alien se oculta cuando el menú está abierto */
+body.menu-open .alien-deco {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.alien-deco:hover {
+    cursor: pointer;
+}
+
+@keyframes alienFloat {
+    0%,100% { transform: translateY(0px)   rotate(-4deg) scaleX(1);    }
+    30%      { transform: translateY(-8px)  rotate( 4deg) scaleX(0.95); }
+    60%      { transform: translateY(-12px) rotate( 0deg) scaleX(1.04); }
+}
+
+@keyframes alienGlow {
+    0%,100% { filter: drop-shadow(0 0  6px rgba(255,77,77,0.5)); }
+    50%      { filter: drop-shadow(0 0 16px rgba(255,77,77,0.9))
+                       drop-shadow(0 0 28px rgba(255,77,77,0.4)); }
+}
+
+@keyframes alienWiggle {
+    0%,100% { transform: rotate(-6deg) scale(1.1);  }
+    50%      { transform: rotate( 6deg) scale(1.15); }
+}
+
+@keyframes alienGlowHot {
+    0%,100% { filter: drop-shadow(0 0 14px rgba(255,80,0,0.9)); }
+    50%      { filter: drop-shadow(0 0 28px rgba(255,200,0,1))
+                       drop-shadow(0 0 50px rgba(255,80,0,0.6)); }
+}
+
+/* =========================================
+   12. RESPONSIVE — TABLET (max 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    .navbar { padding: 16px 30px; }
+    .about-content { gap: 40px; }
+    .glass-container { padding: 50px 40px; }
+    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+
+/* =========================================
+   13. RESPONSIVE — MÓVIL (max 768px)
+   FIX: sin duplicados, hamburger a la derecha
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* Navbar: hamburger a la derecha */
+    .navbar {
+        justify-content: flex-end;
+        padding: 14px 20px;
+    }
+
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100vh;
+        background: rgba(5, 5, 5, 0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        z-index: 99;
+    }
+
+    .nav-links.open { display: flex; }
+
+    .nav-links a {
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+    }
+
+    .hamburger { display: flex; z-index: 101; }
+
+    /* Hero */
+    .greeting { font-size: 1.3rem; }
+    .hero-phrase { font-size: 0.9rem; }
+    .cta-button { padding: 12px 28px; font-size: 0.78rem; }
+
+    /* Sobre mí */
+    .about-section { padding: 100px 16px 80px; }
+    .glass-container { padding: 30px 20px; }
+    .about-content { flex-direction: column; text-align: center; gap: 35px; }
+    .profile-frame { width: 200px; height: 200px; }
+    .text-column { font-size: 0.95rem; text-align: center; }
+    .mini-stats { justify-content: center; gap: 12px; }
+    .stat-item { white-space: normal; text-align: center; }
+
+    /* Skills */
+    .skills-section { padding: 80px 16px; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .skill-card { padding: 20px 10px; }
+    .skill-icon { font-size: 2.5rem; }
+    .skill-name { font-size: 0.8rem; }
+    .skills-intro p { font-size: 0.95rem; }
+
+    /* Proyectos */
+    .projects-section { padding: 80px 16px; }
+
+    /* Contacto */
+    .contact-section { padding: 80px 16px 50px; }
+    .contact-links { gap: 18px; }
+
+    /* Footer */
+    .site-footer { font-size: 0.78rem; gap: 6px; }
+
+    /* Alien más pequeño en móvil */
+    .alien-deco {
+        top: 10px;
+        left: 12px;
+        font-size: 1.4rem;
+    }
+}
+
+/* =========================================
+   14. RESPONSIVE — MÓVIL PEQUEÑO (max 400px)
+   ========================================= */
+@media (max-width: 400px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cta-group { flex-direction: column; align-items: center; }
+    .cta-button { width: 100%; text-align: center; }
+    .glass-container { padding: 25px 16px; }
+}
+
+body.menu-open {
+    overflow: hidden;
+}
