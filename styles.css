@@ -509,6 +509,29 @@ body {
     box-shadow: 0 0 50px rgba(255, 77, 77, 0.12);
 }
 
+/* Captura del proyecto como fondo: añade .project-card--shot
+   y define --card-bg en la clase del proyecto */
+.project-card--shot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: linear-gradient(to top, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.6) 32%, rgba(5, 5, 5, 0.05) 68%),
+                      linear-gradient(105deg, rgba(5, 5, 5, 0.8) 0%, rgba(5, 5, 5, 0.25) 60%, rgba(5, 5, 5, 0) 100%),
+                      var(--card-bg);
+    background-size: cover;
+    background-position: top center;
+    opacity: 0.34;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.project-card--shot:hover::before { opacity: 0.45; }
+
+.project-card--shot > * { position: relative; z-index: 1; }
+
+.project-card--api-movies { --card-bg: url('projects/api-rest-movies.jpg'); }
+
 .project-number {
     font-family: var(--font-display);
     font-size: 5rem;
@@ -796,6 +819,9 @@ body.menu-open .alien-deco {
 
     /* Proyectos */
     .projects-section { padding: 80px 16px; }
+
+    /* La captura es apaisada: en móvil el recorte no se entiende */
+    .project-card--shot::before { display: none; }
 
     /* Contacto */
     .contact-section { padding: 80px 16px 50px; }
