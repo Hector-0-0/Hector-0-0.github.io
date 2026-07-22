@@ -528,9 +528,16 @@ body {
 
 .project-card--shot:hover::before { opacity: 0.45; }
 
+/* Capturas de fondo claro (UI blanca): menos opacidad para no competir con el texto */
+.project-card--shot-light::before { opacity: 0.15; }
+.project-card--shot-light:hover::before { opacity: 0.22; }
+
 .project-card--shot > * { position: relative; z-index: 1; }
 
 .project-card--api-movies { --card-bg: url('projects/api-rest-movies.jpg'); }
+.project-card--libro      { --card-bg: url('projects/libro-reclamaciones.jpg'); }
+.project-card--validador  { --card-bg: url('projects/validador-documento.jpg'); }
+.project-card--mesa-ayuda { --card-bg: url('projects/mesa-ayuda.jpg'); }
 
 .project-number {
     font-family: var(--font-display);
