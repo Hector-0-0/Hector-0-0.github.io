@@ -1,0 +1,6 @@
+# Sitio estático (HTML/CSS/JS). Evita que Jekyll intente renderizar
+# archivos que no son contenido del sitio. CLAUDE.md es un binario y
+# rompe el build de GitHub Pages ("invalid byte sequence in UTF-8").
+exclude:
+  - CLAUDE.md
+  - README.md
