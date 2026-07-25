@@ -538,6 +538,14 @@ body {
 .project-card--libro      { --card-bg: url('projects/libro-reclamaciones.jpg'); }
 .project-card--validador  { --card-bg: url('projects/validador-documento.jpg'); }
 .project-card--mesa-ayuda { --card-bg: url('projects/mesa-ayuda.jpg'); }
+.project-card--centro-medico { --card-bg: url('projects/centro-medico.jpg'); }
+
+/* Centro-medico: captura algo apagada -> más presencia y brillo sin tapar el texto */
+.project-card--centro-medico::before {
+    opacity: 0.26;
+    filter: brightness(1.22) contrast(1.05) saturate(1.1);
+}
+.project-card--centro-medico:hover::before { opacity: 0.34; }
 
 .project-number {
     font-family: var(--font-display);
